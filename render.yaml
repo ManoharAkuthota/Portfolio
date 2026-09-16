@@ -2,7 +2,9 @@
   - type: web
     name: manohar-portfolio
     runtime: static
-    buildCommand: npm run build
+    plan: free
+    region: singapore
+    buildCommand: npm install && npm run build
     staticPublishPath: ./dist
     routes:
       - type: rewrite
