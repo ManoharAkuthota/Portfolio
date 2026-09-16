@@ -1,6 +1,6 @@
 ﻿services:
   - type: web
-    name: manohar-portfolio
+    name: manohar-akuthota-portfolio
     runtime: static
     plan: free
     region: singapore
