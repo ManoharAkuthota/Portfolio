@@ -30,15 +30,15 @@ export default function Hero({ onHoverSound, onClickSound }) {
           initial={{ opacity: 0, y: 30, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-10 w-full text-center pointer-events-none -mt-8 sm:-mt-16 md:-mt-20"
+          className="relative z-10 w-full text-center pointer-events-none -mt-40 sm:-mt-20 md:-mt-20"
         >
-          <h1 className="text-[13vw] sm:text-[15vw] font-black uppercase tracking-tight sm:tracking-normal leading-none font-display bg-gradient-to-b from-white via-zinc-200 to-zinc-600 bg-clip-text text-transparent drop-shadow-[0_20px_50px_rgba(0,0,0,0.9)]">
+          <h1 className="text-[17vw] sm:text-[15vw] font-black uppercase tracking-wider sm:tracking-normal leading-none font-display bg-gradient-to-b from-white via-zinc-100 to-zinc-400 bg-clip-text text-transparent drop-shadow-[0_20px_50px_rgba(0,0,0,0.9)]">
             PORTFOLIO
           </h1>
         </motion.div>
 
         {/* Layer 2: Dedicated Soft Studio Gray Backlight behind Head for Hair Definition */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-15 w-[min(420px,90vw)] sm:w-[540px] h-[50vh] sm:h-[55vh] pointer-events-none bg-[radial-gradient(circle_at_50%_35%,rgba(180,185,195,0.32)_0%,rgba(110,115,125,0.16)_40%,transparent_70%)]" />
+        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-15 w-[min(360px,84vw)] sm:w-[480px] h-[50vh] sm:h-[55vh] pointer-events-none bg-[radial-gradient(circle_at_50%_35%,rgba(180,185,195,0.32)_0%,rgba(110,115,125,0.16)_40%,transparent_70%)]" />
 
         {/* Layer 3: Foreground Executive 3D Portrait Layered over TF (Static, Stable, High-Dimension) */}
         <motion.div
@@ -47,7 +47,7 @@ export default function Hero({ onHoverSound, onClickSound }) {
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="absolute bottom-0 left-1/2 -translate-x-1/2 z-20 pointer-events-none flex justify-center items-end w-full"
         >
-          <div className="relative w-[min(380px,86vw)] sm:w-[460px] md:w-[540px] lg:w-[620px] h-[50vh] sm:h-[65vh] md:h-[72vh] max-h-[680px]">
+          <div className="relative w-[min(320px,76vw)] sm:w-[400px] md:w-[480px] lg:w-[540px] h-[50vh] sm:h-[65vh] md:h-[72vh] max-h-[680px]">
             <img
               src="/assets/manohar_hero.png"
               alt="Manohar Akuthota - Executive Software Developer"
