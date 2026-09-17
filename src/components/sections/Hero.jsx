@@ -38,7 +38,7 @@ export default function Hero({ onHoverSound, onClickSound }) {
         </motion.div>
 
         {/* Layer 2: Dedicated Soft Studio Gray Backlight behind Head for Hair Definition */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-15 w-[min(360px,84vw)] sm:w-[480px] h-[50vh] sm:h-[55vh] pointer-events-none bg-[radial-gradient(circle_at_50%_35%,rgba(180,185,195,0.32)_0%,rgba(110,115,125,0.16)_40%,transparent_70%)]" />
+        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-15 w-[min(380px,86vw)] sm:w-[500px] h-[50vh] sm:h-[55vh] pointer-events-none bg-[radial-gradient(circle_at_50%_35%,rgba(180,185,195,0.32)_0%,rgba(110,115,125,0.16)_40%,transparent_70%)]" />
 
         {/* Layer 3: Foreground Executive 3D Portrait Layered over TF (Static, Stable, High-Dimension) */}
         <motion.div
@@ -47,7 +47,7 @@ export default function Hero({ onHoverSound, onClickSound }) {
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="absolute bottom-0 left-1/2 -translate-x-1/2 z-20 pointer-events-none flex justify-center items-end w-full"
         >
-          <div className="relative w-[min(320px,76vw)] sm:w-[400px] md:w-[480px] lg:w-[540px] h-[50vh] sm:h-[65vh] md:h-[72vh] max-h-[680px]">
+          <div className="relative w-[min(350px,82vw)] sm:w-[440px] md:w-[500px] lg:w-[560px] h-[52vh] sm:h-[65vh] md:h-[72vh] max-h-[680px]">
             <img
               src="/assets/manohar_hero.png"
               alt="Manohar Akuthota - Executive Software Developer"
