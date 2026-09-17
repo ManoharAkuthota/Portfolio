@@ -17,21 +17,6 @@ const LinkedinIcon = ({ size = 18 }) => (
   </svg>
 );
 
-const InstagramIcon = ({ size = 18 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-  </svg>
-);
-
-const TwitterIcon = ({ size = 18 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M4 4l11.733 16h4.267l-11.733-16z" />
-    <path d="M4 20l6.768-6.768m2.464-2.464l6.768-6.768" />
-  </svg>
-);
-
 export default function ContactReel({ onHoverSound, onClickSound, onPlaySuccess }) {
   const [formData, setFormData] = useState({
     name: '',
@@ -48,12 +33,28 @@ export default function ContactReel({ onHoverSound, onClickSound, onPlaySuccess 
     if (onClickSound) onClickSound();
     setSubmitting(true);
 
+    // Form submission triggers direct email to Manohar's official inbox
+    const subject = encodeURIComponent(formData.subject || `Portfolio Inquiry from ${formData.name}`);
+    const body = encodeURIComponent(
+      `Hello Manohar,\n\nYou have received a new inquiry from your Portfolio website:\n\n` +
+      `From: ${formData.name}\n` +
+      `Email: ${formData.email}\n` +
+      `Phone: ${formData.phone || 'Not provided'}\n` +
+      `Subject: ${formData.subject || 'N/A'}\n\n` +
+      `Message:\n${formData.message}\n\n` +
+      `----------------------------------------\n` +
+      `Sent via https://manohar-akuthota-portfolio.onrender.com`
+    );
+
+    window.location.href = `mailto:manoharsriakuthota@gmail.com?subject=${subject}&body=${body}`;
+
     setTimeout(() => {
       setSubmitting(false);
       setSubmitted(true);
       if (onPlaySuccess) onPlaySuccess();
-      setTimeout(() => setSubmitted(false), 5000);
-    }, 1000);
+      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+      setTimeout(() => setSubmitted(false), 6000);
+    }, 800);
   };
 
   return (
@@ -142,28 +143,6 @@ export default function ContactReel({ onHoverSound, onClickSound, onPlaySuccess 
                     aria-label="LinkedIn"
                   >
                     <LinkedinIcon size={18} />
-                  </a>
-
-                  <a
-                    href="https://instagram.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onMouseEnter={onHoverSound}
-                    className="w-10 h-10 rounded-full border border-zinc-800 bg-zinc-950 flex items-center justify-center text-zinc-400 hover:text-white hover:border-[#e1306c] transition-all duration-300"
-                    aria-label="Instagram"
-                  >
-                    <InstagramIcon size={18} />
-                  </a>
-
-                  <a
-                    href="https://twitter.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onMouseEnter={onHoverSound}
-                    className="w-10 h-10 rounded-full border border-zinc-800 bg-zinc-950 flex items-center justify-center text-zinc-400 hover:text-white hover:border-white transition-all duration-300"
-                    aria-label="Twitter / X"
-                  >
-                    <TwitterIcon size={18} />
                   </a>
                 </div>
               </div>

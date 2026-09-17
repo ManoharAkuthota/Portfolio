@@ -15,11 +15,11 @@ export const personalInfo = {
   ],
   bio: "Passionate software engineer bridging enterprise-grade Java Spring Boot backends with ultra-fluid modern React interfaces and cutting-edge AI systems. Committed to building robust, resilient, and human-centric software.",
   availability: "Available for High-Impact Roles & Collaborations",
-  location: "Hyderabad, India",
-  email: "manohar.akuthota@example.com",
-  github: "https://github.com/manohar-akuthota",
-  linkedin: "https://linkedin.com/in/manohar-akuthota",
-  resumeUrl: "#resume",
+  location: "Ahmedabad, India",
+  email: "manoharsriakuthota@gmail.com",
+  github: "https://github.com/ManoharAkuthota",
+  linkedin: "https://www.linkedin.com/in/manohar-akuthota/",
+  resumeUrl: "#contact",
 };
 
 export const aboutData = {
