@@ -1,6 +1,4 @@
-import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
-import RealProjectPreview from '../common/RealProjectPreview';
 
 const GithubIcon = ({ size = 14 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -15,7 +13,8 @@ const projects = [
     title: 'AI JOB APPLICATION BOT & ATS PLATFORM',
     italicWord: 'AI',
     subtitle: 'Full-Stack Java / React 19 • Autonomous Agent Engine',
-    modelType: 'jobagent',
+    badge: 'AUTONOMOUS AI AGENT',
+    image: '/assets/project_jobagent.jpg',
     liveDomain: 'manohar-ai-job-frontend.onrender.com',
     demoUrl: 'https://manohar-ai-job-frontend.onrender.com',
     githubUrl: 'https://github.com/ManoharAkuthota/ai-job-agent',
@@ -30,7 +29,8 @@ const projects = [
     number: '02',
     title: 'MS MOBILES — OMNICHANNEL E-COMMERCE',
     subtitle: 'Full-Stack Java / React 18 / Capacitor • Native Mobile & Web',
-    modelType: 'mobile',
+    badge: 'OMNICHANNEL E-COMMERCE',
+    image: '/assets/project_msmobiles.jpg',
     liveDomain: 'ms-mobiles-frontend.onrender.com',
     demoUrl: 'https://ms-mobiles-frontend.onrender.com/',
     githubUrl: 'https://github.com/ManoharAkuthota/Ecommerce',
@@ -45,7 +45,8 @@ const projects = [
     number: '03',
     title: 'APEX TRUST — CORE BANKING PLATFORM',
     subtitle: 'Full-Stack Java 21 / Angular 19 • Enterprise Core Banking & Ledger',
-    modelType: 'vault',
+    badge: 'ENTERPRISE BANKING ENGINE',
+    image: '/assets/project_banking.jpg',
     liveDomain: 'apex-trust-frontend.onrender.com',
     demoUrl: 'https://apex-trust-frontend.onrender.com/',
     githubUrl: 'https://github.com/ManoharAkuthota/BankingApplication',
@@ -61,7 +62,8 @@ const projects = [
     number: '04',
     title: 'PRODUCTION CPaaS MICROSERVICES',
     subtitle: 'Event-Driven Communications Platform (Keyanna Technologies)',
-    modelType: 'cube',
+    badge: 'TELECOM MICROSERVICES',
+    image: '/assets/project_cpaas.jpg',
     demoUrl: 'https://github.com/ManoharAkuthota',
     githubUrl: 'https://github.com/ManoharAkuthota',
     bullets: [
@@ -75,7 +77,8 @@ const projects = [
     number: '05',
     title: 'DRIVER DROWSINESS DETECTION',
     subtitle: 'Real-Time Computer Vision AI Safety Platform (Python / OpenCV)',
-    modelType: 'orb',
+    badge: 'COMPUTER VISION AI',
+    image: '/assets/project_drowsiness.jpg',
     demoUrl: 'https://github.com/ManoharAkuthota/Drowsiness_Detection',
     githubUrl: 'https://github.com/ManoharAkuthota/Drowsiness_Detection',
     bullets: [
@@ -97,29 +100,17 @@ export default function SelectedWork({ onHoverSound, onClickSound }) {
         {/* Header Section (Matching Reel Frame 8 & 9) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start mb-14 sm:mb-20">
           {/* Left: Section Title */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="lg:col-span-6"
-          >
+          <div className="lg:col-span-6">
             <h2 className="text-4xl sm:text-6xl md:text-7xl font-black font-display tracking-tight text-white uppercase">
               SELECTED{' '}
               <span className="font-serif-italic font-normal lowercase text-zinc-300">
                 work
               </span>
             </h2>
-          </motion.div>
+          </div>
 
           {/* Right: Narrative + Read More Button (Matching Reel Frame 9) */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.15 }}
-            className="lg:col-span-6 flex flex-col items-start lg:items-end gap-3 sm:gap-4"
-          >
+          <div className="lg:col-span-6 flex flex-col items-start lg:items-end gap-3 sm:gap-4">
             <p className="text-zinc-400 text-sm sm:text-base max-w-md leading-relaxed text-left lg:text-right">
               Computer Science (AI) graduate and Junior Java Developer building robust backend microservices, modern full-stack web applications, and autonomous AI systems.
             </p>
@@ -135,7 +126,7 @@ export default function SelectedWork({ onHoverSound, onClickSound }) {
               <span>Explore All on GitHub</span>
               <ArrowUpRight size={15} />
             </a>
-          </motion.div>
+          </div>
         </div>
 
         {/* Alternating Project Cards (Matching Reel Frame 9 & 10) */}
@@ -150,15 +141,40 @@ export default function SelectedWork({ onHoverSound, onClickSound }) {
                   isEven ? '' : 'lg:flex-row-reverse'
                 }`}
               >
-                {/* Project 3D Interactive WebGL Card */}
+                {/* Project Showcase Visual Preview */}
                 <div
                   className={`lg:col-span-7 ${
                     isEven ? 'order-1' : 'order-1 lg:order-2'
                   }`}
                 >
-                  <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-zinc-900/90 via-black to-zinc-950/90 group shadow-2xl hover:border-white/20 transition-all duration-300">
-                    <RealProjectPreview type={project.modelType} />
-                  </div>
+                  <a
+                    href={project.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onMouseEnter={onHoverSound}
+                    onClick={onClickSound}
+                    className="block relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-zinc-900/90 via-black to-zinc-950/90 group shadow-2xl hover:border-[#ccff00]/60 transition-all duration-500 cursor-pointer"
+                  >
+                    {/* Top Status Pill Badge */}
+                    <div className="absolute top-3 sm:top-4 left-3 sm:left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/80 border border-white/15 backdrop-blur-md">
+                      <span className="w-2 h-2 rounded-full bg-[#ccff00] animate-pulse" />
+                      <span className="text-[10px] sm:text-xs font-mono font-bold text-white tracking-wider">
+                        {project.badge}
+                      </span>
+                    </div>
+
+                    {/* High-Resolution Project Studio Photograph */}
+                    <div className="relative aspect-[16/9] w-full overflow-hidden bg-zinc-950">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-700 ease-out"
+                        loading="lazy"
+                      />
+                      {/* Subtle Vignette & Gradient Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent pointer-events-none" />
+                    </div>
+                  </a>
                 </div>
 
                 {/* Project Content & Actions */}
