@@ -60,35 +60,134 @@ const EditorialSeal = ({ className = "w-24 h-24" }) => (
   </div>
 );
 
-const ArchitecturalBlueprint = ({ blueprint }) => {
+const ArchitecturalBlueprint = ({ blueprint, onOpenModal }) => {
+  const [activeTier, setActiveTier] = useState(0);
+
   return (
-    <div className="relative z-10 aspect-[16/10] w-full rounded-xl sm:rounded-2xl border border-cyan-500/30 bg-[#050b14] mt-3 sm:mt-3.5 flex flex-col justify-between overflow-hidden shadow-inner select-none">
+    <div className="relative z-10 h-[410px] sm:h-auto sm:aspect-[16/10] w-full rounded-xl sm:rounded-2xl border border-cyan-500/30 bg-[#050b14] mt-3 sm:mt-3.5 flex flex-col justify-between overflow-hidden shadow-inner select-none">
       {/* Blueprint Coordinate Grid Backdrop */}
       <div className="absolute inset-0 opacity-[0.08] bg-[radial-gradient(#00f0ff_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none" />
 
       {/* Fixed CAD Top Header */}
-      <div className="relative z-20 shrink-0 px-3 sm:px-4 py-2 border-b border-cyan-500/25 bg-[#050b14]/95 flex items-center justify-between text-[10px] font-mono">
+      <div className="relative z-20 shrink-0 px-3 sm:px-4 py-2 border-b border-cyan-500/25 bg-[#050b14]/95 flex items-center justify-between text-[11px] font-mono">
         <div className="flex items-center gap-2 truncate min-w-0">
           <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_#00f0ff] shrink-0" />
-          <span className="text-cyan-300 font-bold tracking-wider truncate">{blueprint.title}</span>
+          <span className="text-cyan-300 font-bold tracking-wider truncate text-xs sm:text-sm">
+            {blueprint.title}
+          </span>
         </div>
         <div className="flex items-center gap-2 shrink-0">
-          <span className="text-[8px] sm:text-[9px] font-mono text-cyan-400/90 border border-cyan-500/30 px-2 py-0.5 rounded-full bg-cyan-950/60 flex items-center gap-1 animate-pulse">
-            <span>↕</span>
-            <span>SCROLL BLUEPRINT</span>
-          </span>
-          <span className="text-emerald-400 font-bold px-1.5 py-0.5 rounded bg-emerald-950/60 border border-emerald-800/40 text-[8px] sm:text-[9px] hidden sm:inline">
-            ● LIVE
+          {onOpenModal && (
+            <button
+              onClick={onOpenModal}
+              className="text-[9px] sm:text-[10px] font-mono text-cyan-400 hover:text-white border border-cyan-500/40 hover:border-cyan-300 px-2 py-0.5 rounded-full bg-cyan-950/60 flex items-center gap-1 cursor-pointer transition-colors"
+              title="Open full-screen blueprint"
+            >
+              <Maximize2 size={10} />
+              <span>EXPAND</span>
+            </button>
+          )}
+          <span className="text-emerald-400 font-bold px-1.5 py-0.5 rounded bg-emerald-950/60 border border-emerald-800/40 text-[9px] hidden sm:inline">
+            ● PRODUCTION LIVE
           </span>
         </div>
       </div>
 
-      {/* Scrollable Architectural 3-Tier Flowchart Body */}
+      {/* Mobile Tier Selector Tabs (Screens < 768px for supreme mobile readability) */}
+      <div className="md:hidden relative z-20 px-3 pt-2 pb-1 shrink-0">
+        <div className="flex items-center gap-1 p-1 rounded-xl bg-zinc-950/90 border border-cyan-500/25">
+          {blueprint.tiers.map((tier, idx) => (
+            <button
+              key={idx}
+              onClick={() => setActiveTier(idx)}
+              className={`flex-1 py-1.5 px-1.5 rounded-lg text-[10px] font-mono font-bold transition-all text-center truncate cursor-pointer ${
+                activeTier === idx
+                  ? 'bg-cyan-400 text-black shadow-[0_0_12px_rgba(0,240,255,0.45)]'
+                  : 'text-zinc-400 hover:text-white'
+              }`}
+            >
+              {tier.tierLabel.split('//')[1]?.trim() || `TIER 0${idx + 1}`}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* 1. Mobile View: Active Tier Display with Large, High-Contrast Readable Typography */}
+      <div className="md:hidden relative z-10 flex-1 overflow-y-auto px-3 py-2 space-y-2.5">
+        {blueprint.tiers[activeTier] && (
+          <div className="rounded-xl bg-zinc-950/90 border border-cyan-500/30 p-3 relative space-y-2.5">
+            {/* Header of Active Tier */}
+            <div className="flex items-center justify-between pb-2 border-b border-zinc-800 text-xs font-mono">
+              <span className="text-cyan-400 font-bold tracking-wider">
+                {blueprint.tiers[activeTier].tierLabel}
+              </span>
+              <span className="text-[10px] px-2 py-0.5 rounded bg-cyan-950/80 border border-cyan-800/60 text-cyan-300 font-semibold">
+                {blueprint.tiers[activeTier].badge}
+              </span>
+            </div>
+
+            {/* Nodes with clear, readable fonts */}
+            <div className="space-y-2.5">
+              {blueprint.tiers[activeTier].nodes.map((node, nIdx) => (
+                <div
+                  key={nIdx}
+                  className="p-2.5 rounded-lg bg-black/80 border border-zinc-800 hover:border-[#ccff00]/50 transition-colors"
+                >
+                  <div className="flex items-center justify-between gap-2 text-xs font-mono">
+                    <span className="font-bold text-white text-xs sm:text-sm">
+                      {node.name}
+                    </span>
+                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-700 text-[#ccff00] font-bold shrink-0">
+                      {node.port}
+                    </span>
+                  </div>
+                  <p className="text-xs text-zinc-300 leading-relaxed mt-1.5">
+                    {node.role}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5 mt-2">
+                    {node.tech.map((tc, tcIdx) => (
+                      <span
+                        key={tcIdx}
+                        className="text-[10px] font-mono text-zinc-300 px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800"
+                      >
+                        {tc}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Mobile Tier Navigation Footer */}
+            <div className="flex items-center justify-between pt-2 border-t border-zinc-800/80 text-[10px] font-mono">
+              <button
+                onClick={() => setActiveTier((prev) => Math.max(0, prev - 1))}
+                disabled={activeTier === 0}
+                className="px-2.5 py-1 rounded bg-zinc-900 text-zinc-300 disabled:opacity-30 hover:text-white cursor-pointer"
+              >
+                ← Prev Tier
+              </button>
+              <span className="text-cyan-400 font-semibold">
+                TIER 0{activeTier + 1} / 03
+              </span>
+              <button
+                onClick={() => setActiveTier((prev) => Math.min(2, prev + 1))}
+                disabled={activeTier === 2}
+                className="px-2.5 py-1 rounded bg-zinc-900 text-zinc-300 disabled:opacity-30 hover:text-white cursor-pointer"
+              >
+                Next Tier →
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* 2. Desktop View: Full 3-Tier Columns Side-by-Side with Scroll Safety */}
       <div
-        className="relative z-10 flex-1 overflow-y-auto p-3 sm:p-4 space-y-3"
+        className="hidden md:flex relative z-10 flex-1 overflow-y-auto p-3 sm:p-4 space-y-3"
         style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(0,240,255,0.4) transparent' }}
       >
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 sm:gap-3 items-stretch">
+        <div className="grid grid-cols-3 gap-3 items-stretch w-full">
           {blueprint.tiers.map((tier, tIdx) => (
             <div
               key={tIdx}
@@ -99,7 +198,7 @@ const ArchitecturalBlueprint = ({ blueprint }) => {
                 <span className="text-cyan-400 font-bold tracking-wider truncate">
                   {tier.tierLabel}
                 </span>
-                <span className="text-[8px] sm:text-[9px] px-1.5 py-0.5 rounded bg-cyan-950/70 border border-cyan-800/50 text-cyan-300 shrink-0">
+                <span className="text-[9px] px-1.5 py-0.5 rounded bg-cyan-950/70 border border-cyan-800/50 text-cyan-300 shrink-0">
                   {tier.badge}
                 </span>
               </div>
@@ -135,13 +234,8 @@ const ArchitecturalBlueprint = ({ blueprint }) => {
 
               {/* Inter-Tier Flow Connector Arrow */}
               {tIdx < 2 && (
-                <div className="hidden md:flex absolute -right-2.5 top-1/2 -translate-y-1/2 z-20 w-5 h-5 rounded-full bg-cyan-950 border border-cyan-400 items-center justify-center text-[10px] text-cyan-300 font-bold shadow-[0_0_8px_#00f0ff80]">
+                <div className="absolute -right-2.5 top-1/2 -translate-y-1/2 z-20 w-5 h-5 rounded-full bg-cyan-950 border border-cyan-400 flex items-center justify-center text-[10px] text-cyan-300 font-bold shadow-[0_0_8px_#00f0ff80]">
                   ➔
-                </div>
-              )}
-              {tIdx < 2 && (
-                <div className="flex md:hidden items-center justify-center py-1 text-cyan-400 text-[9px] font-mono font-bold">
-                  ▼ {tier.flowLabel} ▼
                 </div>
               )}
             </div>
@@ -159,7 +253,7 @@ const ArchitecturalBlueprint = ({ blueprint }) => {
           <span className="text-zinc-500 block text-[7px] uppercase">PROTOCOL</span>
           <span className="text-zinc-300 font-semibold truncate block text-[8px] sm:text-[9px]">{blueprint.protocol}</span>
         </div>
-        <div>
+        <div className="hidden sm:block">
           <span className="text-zinc-500 block text-[7px] uppercase">ARCHITECT</span>
           <span className="text-zinc-200 font-semibold text-[8px] sm:text-[9px]">MANOHAR AKUTHOTA</span>
         </div>
@@ -513,6 +607,7 @@ export default function SelectedWork({ onHoverSound, onClickSound }) {
   const [activeCategory, setActiveCategory] = useState('all');
   const [activePlateView, setActivePlateView] = useState({}); // { [number]: 'photo' | 'blueprint' }
   const [inspectIndex, setInspectIndex] = useState(null); // null or index 0..4
+  const [inspectView, setInspectView] = useState('photo'); // 'photo' | 'blueprint'
 
   const filteredProjects = activeCategory === 'all'
     ? projects
@@ -523,9 +618,10 @@ export default function SelectedWork({ onHoverSound, onClickSound }) {
     setActivePlateView((prev) => ({ ...prev, [number]: view }));
   };
 
-  const openInspectionModal = (index) => {
+  const openInspectionModal = (index, view = 'photo') => {
     if (onClickSound) onClickSound();
     setInspectIndex(index);
+    setInspectView(view);
   };
 
   const closeInspectionModal = useCallback(() => {
@@ -795,7 +891,7 @@ export default function SelectedWork({ onHoverSound, onClickSound }) {
 
                           {/* Inspect Viewfinder Button (Enlarge Modal) */}
                           <button
-                            onClick={() => openInspectionModal(globalIndex)}
+                            onClick={() => openInspectionModal(globalIndex, 'photo')}
                             onMouseEnter={onHoverSound}
                             title="Inspect high-resolution magazine spread"
                             className="absolute top-3 sm:top-4 right-3 sm:right-4 z-20 flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/85 hover:bg-[#ccff00] text-zinc-300 hover:text-black border border-white/15 backdrop-blur-md text-[10px] font-mono transition-all duration-200 cursor-pointer shadow-lg hover:scale-105"
@@ -824,7 +920,10 @@ export default function SelectedWork({ onHoverSound, onClickSound }) {
                         </div>
                       ) : (
                         /* Architectural System Blueprint View (True 3-Tier Flowchart) */
-                        <ArchitecturalBlueprint blueprint={project.blueprint} />
+                        <ArchitecturalBlueprint
+                          blueprint={project.blueprint}
+                          onOpenModal={() => openInspectionModal(globalIndex, 'blueprint')}
+                        />
                       )}
 
                       {/* Bottom Editorial Colophon Strip */}
@@ -1008,52 +1107,84 @@ export default function SelectedWork({ onHoverSound, onClickSound }) {
                   SPREAD {activeInspectProject.number} / 05
                 </span>
                 <span className="text-zinc-600 hidden sm:inline">//</span>
-                <span className="text-xs font-mono text-zinc-300 hidden sm:inline uppercase truncate max-w-md">
+                <span className="text-xs font-mono text-zinc-300 hidden sm:inline uppercase truncate max-w-xs md:max-w-md">
                   {activeInspectProject.title}
                 </span>
               </div>
 
-              <div className="flex items-center gap-2 sm:gap-3">
-                <button
-                  onClick={prevInspect}
-                  onMouseEnter={onHoverSound}
-                  className="p-1.5 rounded-full bg-zinc-900 hover:bg-[#ccff00] text-zinc-300 hover:text-black transition-colors cursor-pointer"
-                  title="Previous Spread (←)"
-                >
-                  <ChevronLeft size={16} />
-                </button>
-                <button
-                  onClick={nextInspect}
-                  onMouseEnter={onHoverSound}
-                  className="p-1.5 rounded-full bg-zinc-900 hover:bg-[#ccff00] text-zinc-300 hover:text-black transition-colors cursor-pointer"
-                  title="Next Spread (→)"
-                >
-                  <ChevronRight size={16} />
-                </button>
-                <button
-                  onClick={closeInspectionModal}
-                  onMouseEnter={onHoverSound}
-                  className="flex items-center gap-1 px-3 py-1 rounded-full bg-zinc-900 hover:bg-red-500/20 text-zinc-300 hover:text-red-400 border border-zinc-800 transition-colors cursor-pointer text-xs font-mono"
-                  title="Close (Esc)"
-                >
-                  <X size={14} />
-                  <span className="hidden sm:inline">ESC</span>
-                </button>
+              {/* View Mode Switcher & Controls */}
+              <div className="flex items-center gap-2 sm:gap-4">
+                <div className="flex items-center gap-1 p-0.5 rounded-full bg-black/80 border border-white/15">
+                  <button
+                    onClick={() => { if (onClickSound) onClickSound(); setInspectView('photo'); }}
+                    className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition-all cursor-pointer ${
+                      inspectView === 'photo'
+                        ? 'bg-[#ccff00] text-black shadow-[0_0_10px_rgba(204,255,0,0.4)]'
+                        : 'text-zinc-400 hover:text-white'
+                    }`}
+                  >
+                    PHOTO
+                  </button>
+                  <button
+                    onClick={() => { if (onClickSound) onClickSound(); setInspectView('blueprint'); }}
+                    className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition-all cursor-pointer ${
+                      inspectView === 'blueprint'
+                        ? 'bg-cyan-400 text-black shadow-[0_0_10px_rgba(0,240,255,0.4)]'
+                        : 'text-zinc-400 hover:text-white'
+                    }`}
+                  >
+                    BLUEPRINT
+                  </button>
+                </div>
+
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <button
+                    onClick={prevInspect}
+                    onMouseEnter={onHoverSound}
+                    className="p-1.5 rounded-full bg-zinc-900 hover:bg-[#ccff00] text-zinc-300 hover:text-black transition-colors cursor-pointer"
+                    title="Previous Spread (←)"
+                  >
+                    <ChevronLeft size={16} />
+                  </button>
+                  <button
+                    onClick={nextInspect}
+                    onMouseEnter={onHoverSound}
+                    className="p-1.5 rounded-full bg-zinc-900 hover:bg-[#ccff00] text-zinc-300 hover:text-black transition-colors cursor-pointer"
+                    title="Next Spread (→)"
+                  >
+                    <ChevronRight size={16} />
+                  </button>
+                  <button
+                    onClick={closeInspectionModal}
+                    onMouseEnter={onHoverSound}
+                    className="flex items-center gap-1 px-3 py-1 rounded-full bg-zinc-900 hover:bg-red-500/20 text-zinc-300 hover:text-red-400 border border-zinc-800 transition-colors cursor-pointer text-xs font-mono"
+                    title="Close (Esc)"
+                  >
+                    <X size={14} />
+                    <span className="hidden sm:inline">ESC</span>
+                  </button>
+                </div>
               </div>
             </div>
 
-            {/* Modal Body: Large Photographic Plate + Specs */}
+            {/* Modal Body: Large Photographic Plate or Blueprint + Specs */}
             <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5">
-              <div className="relative aspect-[16/9] w-full max-h-[58vh] rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 bg-black shadow-2xl">
-                <img
-                  src={activeInspectProject.image}
-                  alt={activeInspectProject.title}
-                  className="w-full h-full object-contain object-center bg-black"
-                />
-                <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/80 border border-white/20 text-[10px] font-mono text-[#ccff00]">
-                  FIG. {activeInspectProject.number} // HIGH-RES WORKSTATION CAPTURE
+              {inspectView === 'blueprint' ? (
+                <div className="w-full">
+                  <ArchitecturalBlueprint blueprint={activeInspectProject.blueprint} />
                 </div>
-              </div>
+              ) : (
+                <div className="relative aspect-[16/9] w-full max-h-[58vh] rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 bg-black shadow-2xl">
+                  <img
+                    src={activeInspectProject.image}
+                    alt={activeInspectProject.title}
+                    className="w-full h-full object-contain object-center bg-black"
+                  />
+                  <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/80 border border-white/20 text-[10px] font-mono text-[#ccff00]">
+                    FIG. {activeInspectProject.number} // HIGH-RES WORKSTATION CAPTURE
+                  </div>
+                </div>
+              )}
 
               {/* Modal Metadata & Direct Action Bar */}
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-2 border-t border-zinc-800">
