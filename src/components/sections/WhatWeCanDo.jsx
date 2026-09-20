@@ -72,12 +72,8 @@ export default function WhatWeCanDo({ onHoverSound, onClickSound }) {
           {servicesData.map((item, idx) => {
             const isActive = activeIdx === idx;
             return (
-              <motion.div
+              <div
                 key={item.number}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.05 }}
                 onMouseEnter={() => {
                   setActiveIdx(idx);
                   if (onHoverSound) onHoverSound();
@@ -150,7 +146,7 @@ export default function WhatWeCanDo({ onHoverSound, onClickSound }) {
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </motion.div>
+              </div>
             );
           })}
         </div>

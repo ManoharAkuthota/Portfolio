@@ -144,13 +144,9 @@ export default function SelectedWork({ onHoverSound, onClickSound }) {
             const isEven = idx % 2 === 0;
 
             return (
-              <motion.div
+              <div
                 key={project.number}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.05 }}
-                transition={{ duration: 0.8 }}
-                className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center ${
+                className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center transition-all duration-300 ${
                   isEven ? '' : 'lg:flex-row-reverse'
                 }`}
               >
@@ -261,7 +257,7 @@ export default function SelectedWork({ onHoverSound, onClickSound }) {
                     </a>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>
