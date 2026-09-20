@@ -60,6 +60,113 @@ const EditorialSeal = ({ className = "w-24 h-24" }) => (
   </div>
 );
 
+const ArchitecturalBlueprint = ({ blueprint }) => {
+  return (
+    <div className="relative z-10 w-full min-h-[460px] md:min-h-[420px] rounded-xl sm:rounded-2xl border border-cyan-500/30 bg-[#050b14] mt-3 sm:mt-3.5 p-3.5 sm:p-5 flex flex-col justify-between overflow-hidden shadow-2xl">
+      {/* Blueprint Coordinate Grid Backdrop */}
+      <div className="absolute inset-0 opacity-[0.08] bg-[radial-gradient(#00f0ff_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none" />
+
+      {/* CAD Registration Crosshairs & Border Rulers */}
+      <span className="absolute top-2 left-3 text-[9px] font-mono text-cyan-600 select-none pointer-events-none">+ CAD SPEC</span>
+      <span className="absolute top-2 right-3 text-[9px] font-mono text-cyan-600 select-none pointer-events-none">DWG: {blueprint.drawingNo}</span>
+
+      {/* Top Header */}
+      <div className="relative z-10 flex items-center justify-between border-b border-cyan-500/25 pb-2.5 mb-3 text-[10px] font-mono">
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_#00f0ff]" />
+          <span className="text-cyan-300 font-bold tracking-wider">{blueprint.title}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-emerald-400 font-bold px-2 py-0.5 rounded bg-emerald-950/60 border border-emerald-800/40 text-[9px]">
+            ● PRODUCTION VERIFIED
+          </span>
+        </div>
+      </div>
+
+      {/* 3-Tier Architectural Node Graph */}
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-3.5 my-auto py-1">
+        {blueprint.tiers.map((tier, tIdx) => (
+          <div
+            key={tIdx}
+            className="flex flex-col rounded-xl bg-zinc-950/85 border border-cyan-500/20 p-2.5 sm:p-3 relative group/tier hover:border-cyan-400/50 transition-colors"
+          >
+            {/* Tier Masthead Banner */}
+            <div className="flex items-center justify-between pb-2 mb-2 border-b border-zinc-800/80 text-[10px] font-mono">
+              <span className="text-cyan-400 font-bold tracking-wider">
+                {tier.tierLabel}
+              </span>
+              <span className="text-[9px] px-1.5 py-0.5 rounded bg-cyan-950/70 border border-cyan-800/50 text-cyan-300">
+                {tier.badge}
+              </span>
+            </div>
+
+            {/* Nodes inside this tier */}
+            <div className="space-y-2 flex-1 flex flex-col justify-center">
+              {tier.nodes.map((node, nIdx) => (
+                <div
+                  key={nIdx}
+                  className="p-2 rounded-lg bg-black/75 border border-white/10 hover:border-[#ccff00]/40 transition-colors"
+                >
+                  <div className="flex items-center justify-between gap-1 text-[10px] font-mono">
+                    <span className="font-bold text-white group-hover/tier:text-cyan-200 truncate">
+                      {node.name}
+                    </span>
+                    <span className="text-[8px] font-mono px-1 py-0.2 rounded bg-zinc-900 border border-zinc-700 text-[#ccff00] shrink-0">
+                      {node.port}
+                    </span>
+                  </div>
+                  <p className="text-[9.5px] text-zinc-400 leading-tight mt-1 line-clamp-2">
+                    {node.role}
+                  </p>
+                  <div className="flex flex-wrap gap-1 mt-1.5">
+                    {node.tech.map((tc, tcIdx) => (
+                      <span key={tcIdx} className="text-[8px] font-mono text-zinc-400 px-1 rounded bg-zinc-900/90 border border-zinc-800">
+                        {tc}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Inter-Tier Flow Connector Arrow */}
+            {tIdx < 2 && (
+              <div className="hidden md:flex absolute -right-2.5 top-1/2 -translate-y-1/2 z-20 w-5 h-5 rounded-full bg-cyan-950 border border-cyan-400 items-center justify-center text-[10px] text-cyan-300 font-bold shadow-[0_0_8px_#00f0ff80]">
+                ➔
+              </div>
+            )}
+            {tIdx < 2 && (
+              <div className="flex md:hidden items-center justify-center py-1 text-cyan-400 text-xs font-mono font-bold">
+                ▼ {tier.flowLabel} ▼
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Classic CAD Blueprint Title Block */}
+      <div className="relative z-10 grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2.5 mt-3 border-t border-cyan-500/25 text-[9px] font-mono text-zinc-400">
+        <div>
+          <span className="text-zinc-500 block text-[8px] uppercase">DRAWING NO</span>
+          <span className="text-cyan-300 font-bold">{blueprint.drawingNo}</span>
+        </div>
+        <div>
+          <span className="text-zinc-500 block text-[8px] uppercase">SYSTEM PROTOCOL</span>
+          <span className="text-zinc-300 font-semibold truncate block">{blueprint.protocol}</span>
+        </div>
+        <div>
+          <span className="text-zinc-500 block text-[8px] uppercase">TOPOLOGY ARCHITECT</span>
+          <span className="text-zinc-200 font-semibold">MANOHAR AKUTHOTA</span>
+        </div>
+        <div>
+          <span className="text-zinc-500 block text-[8px] uppercase">VERIFICATION</span>
+          <span className="text-emerald-400 font-bold">100% ACID & SLA PASS</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const categories = [
   { id: 'all', label: 'All Curated Spreads', count: '05' },
   { id: 'ai', label: 'Autonomous AI & Vision', count: '02' },
@@ -100,14 +207,37 @@ const projects = [
     ],
     tags: ['Spring Boot 3', 'React 19', 'MySQL', 'Local Ollama Llama 3', 'Google Gemini', 'Playwright', 'ATS Matching', 'Render'],
     blueprint: {
-      title: 'AUTONOMOUS RECRUITING & ATS INFERENCE PIPELINE',
+      title: 'AUTONOMOUS RECRUITING & ATS INFERENCE TOPOLOGY',
+      drawingNo: 'MK-2026-ARCH-01',
       protocol: 'HTTP/2 REST • LOCAL OLLAMA IPC • PLAYWRIGHT CDP',
-      stages: [
-        { label: '01 / INGEST', name: 'Candidate Bio & Resume Parser', desc: 'Converts unstructured CV text into structured semantic JSON profile.' },
-        { label: '02 / INFERENCE', name: 'Local Ollama Llama 3 Engine', desc: 'Zero-token local inference produces tailored motivation briefs.' },
-        { label: '03 / EVALUATION', name: 'ATS Semantic Keyword Scorer', desc: 'Computes cosine relevance to target 99.4% pass threshold.' },
-        { label: '04 / DISPATCH', name: 'Playwright Headless Automation', desc: 'In-browser form filling, dynamic input typing & screenshot OCR.' },
-        { label: '05 / AUDIT', name: 'MySQL Cloud Execution Ledger', desc: 'Logs immutable audit trail, portal receipt & submission status.' },
+      tiers: [
+        {
+          tierLabel: '01 // INGRESS & CLIENT',
+          badge: 'PORTAL TIER',
+          flowLabel: 'REST / JSON',
+          nodes: [
+            { name: 'React 19 Dashboard', port: ':3000', role: 'Candidate resume intake, real-time tailoring preview & job dispatch control.', tech: ['React 19', 'Tailwind'] },
+            { name: 'Dossier JSON Parser', port: 'PIPE', role: 'Converts unstructured PDF resumes into structured semantic candidate profile.', tech: ['Apache Tika', 'Regex'] },
+          ],
+        },
+        {
+          tierLabel: '02 // ENGINE & CORE',
+          badge: 'INTELLIGENCE',
+          flowLabel: 'CDP / IPC',
+          nodes: [
+            { name: 'Spring Boot 3 Hub', port: ':8080', role: 'Application state manager, job queues & secure credential vault.', tech: ['Java 21', 'Spring Web'] },
+            { name: 'Ollama Llama 3', port: ':11434', role: 'Private local LLM performing prompt tailoring at zero token cost.', tech: ['Llama 3', 'Local IPC'] },
+            { name: 'Playwright Hub', port: 'CDP', role: 'Headless Chromium automation, dynamic input typing & screenshot OCR.', tech: ['Playwright', 'Chromium'] },
+          ],
+        },
+        {
+          tierLabel: '03 // PERSISTENCE & QUEUE',
+          badge: 'LEDGER TIER',
+          nodes: [
+            { name: 'MySQL Cloud DB', port: ':3306', role: 'ACID transaction history, portal submission status & application logs.', tech: ['TiDB Cloud', 'MySQL'] },
+            { name: 'Redis Task Queue', port: ':6379', role: 'In-memory cron scheduler & asynchronous execution queue.', tech: ['Redis', 'Spring Cache'] },
+          ],
+        },
       ],
     },
   },
@@ -143,14 +273,37 @@ const projects = [
     ],
     tags: ['Spring Boot 3', 'React 18', 'TiDB Cloud (AWS MySQL)', 'Spring Security 6', 'JWT', 'Capacitor 8', 'jsPDF', 'Cloudinary CDN'],
     blueprint: {
-      title: 'OMNICHANNEL COMMERCE & STATUTORY FINTECH ENGINE',
+      title: 'OMNICHANNEL COMMERCE & STATUTORY FINTECH TOPOLOGY',
+      drawingNo: 'MK-2026-ARCH-02',
       protocol: 'CAPACITOR 8 BRIDGE • SPRING SECURITY 6 • TIDB AWS',
-      stages: [
-        { label: '01 / CLIENT', name: 'Capacitor 8 Mobile & React PWA', desc: 'Single codebase powering native Android APK and high-speed web.' },
-        { label: '02 / SECURITY', name: 'Spring Security 6 Stateless JWT', desc: 'Role-based access guard for administrative and checkout routes.' },
-        { label: '03 / FINTECH', name: 'HSN 8517 Statutory GST Engine', desc: 'Dual 9% CGST + 9% SGST calculation with rupee word currency.' },
-        { label: '04 / INVOICE', name: 'Automated jsPDF Document Pipeline', desc: 'Instant downloadable statutory tax invoice with tax QR tokens.' },
-        { label: '05 / STORAGE', name: 'TiDB Cloud AWS & Cloudinary CDN', desc: 'Distributed SQL transaction safety with global image edge caches.' },
+      tiers: [
+        {
+          tierLabel: '01 // CLIENT TIER',
+          badge: 'OMNICHANNEL',
+          flowLabel: 'HTTPS / JWT',
+          nodes: [
+            { name: 'Capacitor 8 Mobile', port: 'ANDROID', role: 'Native Android smartphone application packaged via Capacitor runtime.', tech: ['Android SDK', 'Capacitor 8'] },
+            { name: 'React 18 Web PWA', port: ':5173', role: 'High-speed desktop & mobile web storefront with offline service workers.', tech: ['React 18', 'Vite PWA'] },
+          ],
+        },
+        {
+          tierLabel: '02 // SERVICES & FINTECH',
+          badge: 'MICROSERVICES',
+          flowLabel: 'JDBC / CDN',
+          nodes: [
+            { name: 'Spring Security 6', port: ':8080', role: 'Stateless JWT auth filter chain with role-based access control (RBAC).', tech: ['JWT', 'BCrypt'] },
+            { name: 'Statutory GST Engine', port: 'FINTECH', role: 'HSN 8517 statutory tax calculator (dual 9% CGST + 9% SGST breakdown).', tech: ['Indian Tax', 'Math'] },
+            { name: 'jsPDF Invoice Core', port: 'PDF GEN', role: 'Automated statutory tax invoices with Rupee number-to-words currency.', tech: ['jsPDF', 'AutoTable'] },
+          ],
+        },
+        {
+          tierLabel: '03 // PERSISTENCE & CDN',
+          badge: 'CLOUD DATA',
+          nodes: [
+            { name: 'TiDB Cloud (AWS)', port: ':4000', role: 'Distributed MySQL cluster providing ACID reliability across transactions.', tech: ['TiDB AWS', 'MySQL'] },
+            { name: 'Cloudinary CDN', port: 'EDGE CDN', role: 'Edge asset delivery with automatic WebP/AVIF compression & caching.', tech: ['Cloudinary', 'Global CDN'] },
+          ],
+        },
       ],
     },
   },
@@ -187,13 +340,36 @@ const projects = [
     tags: ['Spring Boot 3 (Java 21)', 'Angular 19', 'TiDB Serverless', 'Liquibase', 'Docker', 'JWT / RBAC', 'Render'],
     blueprint: {
       title: 'MISSION-CRITICAL CORE BANKING & DUAL-ENTRY LEDGER',
+      drawingNo: 'MK-2026-ARCH-03',
       protocol: 'ANGULAR 19 HTTP • SPRING BOOT 3 (JAVA 21) • LIQUIBASE',
-      stages: [
-        { label: '01 / PORTAL', name: 'Angular 19 Operations Dashboard', desc: 'Real-time liquidity and ledger monitoring with biometric auth styling.' },
-        { label: '02 / ACCESS', name: '4-Tier Role Guard (Admin/Teller/User)', desc: 'Fine-grained RBAC filters preventing unauthorized vault mutations.' },
-        { label: '03 / LEDGER', name: 'Dual-Entry ACID Transaction Engine', desc: 'Guaranteed atomicity across debit and credit journal entries.' },
-        { label: '04 / VAULT', name: 'BCrypt Salting & Cryptographic Key Store', desc: 'Secure credential hashing and tamper-proof user audit trails.' },
-        { label: '05 / LIFECYCLE', name: 'Liquibase & TiDB Serverless Cloud', desc: 'Automated database versioning and zero-downtime schema rollouts.' },
+      tiers: [
+        {
+          tierLabel: '01 // CLIENT & GUARDS',
+          badge: 'PRESENTATION',
+          flowLabel: 'HTTP REST',
+          nodes: [
+            { name: 'Angular 19 Portal', port: ':4200', role: 'Glassmorphic operations terminal featuring live volume monitoring.', tech: ['Angular 19', 'TypeScript'] },
+            { name: '4-Tier RBAC Guard', port: 'AUTH', role: 'Permission interceptor enforcing Admin, Manager, Teller & Customer roles.', tech: ['Guards', 'JWT Interceptor'] },
+          ],
+        },
+        {
+          tierLabel: '02 // BANKING ENGINE',
+          badge: 'CORE TRANSACTION',
+          flowLabel: 'ACID JPA',
+          nodes: [
+            { name: 'Spring Boot 3 API', port: ':8080', role: 'Central banking orchestration API with Java 21 virtual threads.', tech: ['Spring Boot 3', 'Java 21'] },
+            { name: 'Dual-Entry Ledger', port: 'ACID ENGINE', role: 'Double-entry bookkeeping engine with strict mathematical parity.', tech: ['Spring Data', 'JTA'] },
+            { name: 'BCrypt Security Vault', port: 'CRYPTO', role: 'Cryptographic hash salting and tamper-evident audit journal trails.', tech: ['BCrypt 12', 'Security'] },
+          ],
+        },
+        {
+          tierLabel: '03 // DATABASE & DDL',
+          badge: 'PERSISTENCE',
+          nodes: [
+            { name: 'TiDB Serverless', port: ':4000', role: 'Distributed serverless SQL database with automated multi-zone replication.', tech: ['TiDB Serverless', 'SQL'] },
+            { name: 'Liquibase Manager', port: 'MIGRATIONS', role: 'Automated database changelog version control & zero-downtime rollouts.', tech: ['Liquibase', 'DDL XML'] },
+          ],
+        },
       ],
     },
   },
@@ -229,13 +405,35 @@ const projects = [
     tags: ['Java', 'Spring Boot', 'Apache Kafka', 'JWT', 'Microservices', 'Spring Security', 'REST APIs'],
     blueprint: {
       title: 'EVENT-DRIVEN CPaaS MESSAGE DISPATCH CLUSTER',
+      drawingNo: 'MK-2026-ARCH-04',
       protocol: 'REST INGRESS • APACHE KAFKA CLUSTER • TELCO SMPP',
-      stages: [
-        { label: '01 / INGRESS', name: 'High-Concurrency REST API Gateway', desc: 'Sub-12ms ingress handling bulk customer dispatch requests.' },
-        { label: '02 / BROKER', name: 'Apache Kafka Clustered Topic Bus', desc: 'Partitioned event streaming preventing message backpressure loss.' },
-        { label: '03 / WORKERS', name: 'Spring Boot Consumer Daemon Threads', desc: 'Dynamic load balancing across SMS and WhatsApp outbound queues.' },
-        { label: '04 / CARRIER', name: 'Tier-1 Telco SMPP Gateway Trunk', desc: 'Direct carrier integration with failover routing and retry policies.' },
-        { label: '05 / STATUS', name: 'Live Webhook & Delivery SLA Monitor', desc: 'Immediate carrier delivery receipts and SLA uptime telemetry.' },
+      tiers: [
+        {
+          tierLabel: '01 // INGRESS GATEWAY',
+          badge: 'TELECOM API',
+          flowLabel: 'KAFKA PRODUCER',
+          nodes: [
+            { name: 'REST Dispatch API', port: ':8080', role: 'High-throughput ingress accepting SMS & WhatsApp requests in under 12ms.', tech: ['Spring Web', 'Netty'] },
+            { name: 'Quota & Token Filter', port: 'SECURITY', role: 'Stateless JWT auth and Redis token-bucket rate limiter per tenant.', tech: ['Redis Token', 'JWT'] },
+          ],
+        },
+        {
+          tierLabel: '02 // BROKER CLUSTER',
+          badge: 'EVENT STREAM',
+          flowLabel: 'SMPP / REST',
+          nodes: [
+            { name: 'Apache Kafka Broker', port: ':9092', role: 'Clustered topic partitions delivering 45.8K msg/sec with zero packet loss.', tech: ['Apache Kafka', 'Zookeeper'] },
+            { name: 'Consumer Daemons', port: 'THREAD POOL', role: 'Multi-threaded worker groups dynamically pulling and routing dispatches.', tech: ['Spring Kafka', 'Threads'] },
+          ],
+        },
+        {
+          tierLabel: '03 // CARRIERS & SLA',
+          badge: 'TELCO TRUNKS',
+          nodes: [
+            { name: 'Tier-1 SMPP Trunk', port: 'SMPP 3.4', role: 'Direct telecom carrier SMS gateway connectivity with retry fallbacks.', tech: ['SMPP Protocol', 'Telco'] },
+            { name: 'WhatsApp Meta API', port: 'GRAPH API', role: 'Enterprise WhatsApp Business Cloud API with real-time delivery webhooks.', tech: ['Meta API', '99.99% SLA'] },
+          ],
+        },
       ],
     },
   },
@@ -270,14 +468,37 @@ const projects = [
     ],
     tags: ['Python', 'OpenCV', 'Dlib', 'Computer Vision', 'Deep Learning', 'AI Safety', 'NumPy'],
     blueprint: {
-      title: 'REAL-TIME EDGE COMPUTER VISION & OCULAR FATIGUE PIPELINE',
+      title: 'REAL-TIME EDGE COMPUTER VISION & OCULAR FATIGUE TOPOLOGY',
+      drawingNo: 'MK-2026-ARCH-05',
       protocol: 'OPENCV 60 FPS • DLIB 68 LANDMARKS • ACOUSTIC ALARM',
-      stages: [
-        { label: '01 / CAPTURE', name: 'Cabin Optical Feed Normalization', desc: 'High-speed 60 FPS video frame acquisition and illumination leveling.' },
-        { label: '02 / DETECT', name: 'Dlib 68-Point Facial Landmark Mesh', desc: 'Precise extraction of eyelid contour and oral perimeter vectors.' },
-        { label: '03 / COMPUTE', name: 'EAR & MAR Mathematical Calculus', desc: 'Real-time aspect ratio computation measuring vertical ocular opening.' },
-        { label: '04 / FILTER', name: 'Temporal Micro-Sleep Fatigue Gate', desc: 'State filter evaluating consecutive frame drops below 0.25 threshold.' },
-        { label: '05 / ALARM', name: 'Acoustic Sounder & Visual HUD Actuator', desc: 'Immediate emergency alert buzzer triggering to awaken operator.' },
+      tiers: [
+        {
+          tierLabel: '01 // VIDEO INGESTION',
+          badge: 'OPTICAL SENSOR',
+          flowLabel: '60 FPS STREAM',
+          nodes: [
+            { name: 'Cabin Webcam Feed', port: '60 FPS', role: 'Automotive optical sensor streaming real-time driver cabin video.', tech: ['UVC Camera', '1080P'] },
+            { name: 'OpenCV Normalizer', port: 'BUFFER', role: 'Frame matrix scaling, grayscale conversion & histogram equalization.', tech: ['OpenCV', 'Python'] },
+          ],
+        },
+        {
+          tierLabel: '02 // VISION AI MESH',
+          badge: 'AI PIPELINE',
+          flowLabel: 'MATH VECTORS',
+          nodes: [
+            { name: 'Dlib 68-Point Mesh', port: 'FACIAL MESH', role: 'Pre-trained shape predictor extracting 68 2D ocular & facial landmark points.', tech: ['Dlib C++', 'NumPy'] },
+            { name: 'EAR & MAR Calculus', port: 'VECTOR MATH', role: 'Dynamic Eye Aspect Ratio and Mouth Aspect Ratio geometry calculations.', tech: ['Euclidean Math', 'NumPy'] },
+            { name: 'Fatigue Gate Filter', port: 'TEMPORAL', role: 'Temporal rolling filter evaluating consecutive frames below 0.25 threshold.', tech: ['State Gate', 'EAR < 0.25'] },
+          ],
+        },
+        {
+          tierLabel: '03 // SAFETY ACTUATION',
+          badge: 'ALARM SYSTEM',
+          nodes: [
+            { name: 'Acoustic Buzzer', port: 'AUDIO ALARM', role: 'Instant audio alarm sounder triggering emergency acoustic alert.', tech: ['PyAudio', 'GPIO Buzzer'] },
+            { name: 'Visual Console HUD', port: 'HUD WARN', role: 'High-contrast cockpit visual alert displaying driver fatigue warnings.', tech: ['OpenCV GUI', 'HUD'] },
+          ],
+        },
       ],
     },
   },
@@ -597,51 +818,8 @@ export default function SelectedWork({ onHoverSound, onClickSound }) {
                           </div>
                         </div>
                       ) : (
-                        /* Architectural System Blueprint View */
-                        <div className="relative z-10 aspect-[16/10] w-full overflow-hidden rounded-xl sm:rounded-2xl border border-cyan-500/20 bg-[#060a10] mt-3 sm:mt-3.5 p-4 flex flex-col justify-between shadow-inner">
-                          {/* CAD Grid Backdrop */}
-                          <div className="absolute inset-0 opacity-[0.06] bg-[linear-gradient(to_right,#00ffff_1px,transparent_1px),linear-gradient(to_bottom,#00ffff_1px,transparent_1px)] bg-[size:1.5rem_1.5rem] pointer-events-none" />
-
-                          {/* Blueprint Top Header */}
-                          <div className="relative z-10 flex items-center justify-between border-b border-cyan-500/20 pb-2 text-[10px] font-mono">
-                            <div className="flex items-center gap-2">
-                              <span className="w-2 h-2 rounded-sm bg-cyan-400 animate-pulse" />
-                              <span className="text-cyan-300 font-bold tracking-wider">{project.blueprint.title}</span>
-                            </div>
-                            <span className="text-[9px] text-zinc-500 hidden sm:inline">SCHEMATIC CAD // REV 2026.4</span>
-                          </div>
-
-                          {/* 5-Step Pipeline Stages */}
-                          <div className="relative z-10 space-y-1.5 sm:space-y-2 my-auto py-2">
-                            {project.blueprint.stages.map((stg, sIdx) => (
-                              <div
-                                key={sIdx}
-                                className="flex items-start gap-3 p-1.5 sm:p-2 rounded-lg bg-zinc-950/80 border border-zinc-800/80 hover:border-cyan-500/40 transition-colors group/stg"
-                              >
-                                <span className="text-[9px] font-mono font-bold text-cyan-400 px-1.5 py-0.5 rounded bg-cyan-950/50 border border-cyan-800/40 shrink-0">
-                                  {stg.label}
-                                </span>
-                                <div className="min-w-0 flex-1">
-                                  <div className="text-xs font-mono font-bold text-zinc-200 group-hover/stg:text-[#ccff00] transition-colors truncate">
-                                    {stg.name}
-                                  </div>
-                                  <div className="text-[10px] text-zinc-400 truncate leading-tight">
-                                    {stg.desc}
-                                  </div>
-                                </div>
-                                <span className="text-zinc-600 group-hover/stg:text-cyan-400 text-xs shrink-0 hidden sm:inline">➔</span>
-                              </div>
-                            ))}
-                          </div>
-
-                          {/* Blueprint Bottom Protocol Bar */}
-                          <div className="relative z-10 flex items-center justify-between pt-2 border-t border-cyan-500/20 text-[9px] font-mono text-zinc-400">
-                            <span className="text-zinc-500 truncate">
-                              PROTOCOL: <span className="text-zinc-300">{project.blueprint.protocol}</span>
-                            </span>
-                            <span className="text-emerald-400 font-bold shrink-0">100% OPERATIONAL</span>
-                          </div>
-                        </div>
+                        /* Architectural System Blueprint View (True 3-Tier Flowchart) */
+                        <ArchitecturalBlueprint blueprint={project.blueprint} />
                       )}
 
                       {/* Bottom Editorial Colophon Strip */}
