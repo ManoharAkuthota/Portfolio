@@ -144,6 +144,18 @@ export default function ContactReel({ onHoverSound, onClickSound, onPlaySuccess 
                   >
                     <LinkedinIcon size={18} />
                   </a>
+
+                  <a
+                    href="/Akuthota_Manohar_Resume.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    download="Akuthota_Manohar_Resume.pdf"
+                    onMouseEnter={onHoverSound}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-zinc-800 bg-zinc-950 text-xs font-mono text-zinc-300 hover:text-black hover:bg-[#ccff00] hover:border-[#ccff00] transition-all duration-300"
+                    aria-label="Download Official Resume PDF"
+                  >
+                    <span>Resume (PDF) ↓</span>
+                  </a>
                 </div>
               </div>
             </div>

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
-import Project3DCard from '../3d/Project3DCard';
+import RealProjectPreview from '../common/RealProjectPreview';
 
 const GithubIcon = ({ size = 14 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -160,18 +160,8 @@ export default function SelectedWork({ onHoverSound, onClickSound }) {
                     isEven ? 'order-1' : 'order-1 lg:order-2'
                   }`}
                 >
-                  <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-zinc-900/90 via-black to-zinc-950/90 group shadow-2xl backdrop-blur-xl">
-                    {/* Top 3D Interactive Badge */}
-                    <div className="absolute top-3 sm:top-4 left-3 sm:left-4 z-20 flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 rounded-full bg-black/70 border border-white/10 text-[9px] sm:text-[10px] font-mono text-[#ccff00] backdrop-blur-md">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#ccff00] animate-ping" />
-                      <span>INTERACTIVE 3D MODEL • DRAG TO ROTATE</span>
-                    </div>
-
-                    {/* Three.js 3D WebGL Canvas */}
-                    <Project3DCard type={project.modelType} />
-
-                    {/* Subtle Corner Glow Accent */}
-                    <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-[#ccff00]/10 rounded-full blur-2xl pointer-events-none" />
+                  <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-zinc-900/90 via-black to-zinc-950/90 group shadow-2xl hover:border-white/20 transition-all duration-300">
+                    <RealProjectPreview type={project.modelType} />
                   </div>
                 </div>
 
