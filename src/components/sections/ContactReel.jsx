@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { Mail, Phone, CheckCircle2, Send } from 'lucide-react';
 
 const GithubIcon = ({ size = 18 }) => (
@@ -65,13 +64,7 @@ export default function ContactReel({ onHoverSound, onClickSound, onPlaySuccess 
       <div className="max-w-7xl mx-auto w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           {/* Left Column: Direct Info & Socials (Matching Reel Frame 11) */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="lg:col-span-5 space-y-8 sm:space-y-10"
-          >
+          <div className="lg:col-span-5 space-y-8 sm:space-y-10">
             <div>
               <h2 className="text-3xl sm:text-5xl md:text-6xl font-black font-display text-white tracking-tight">
                 Get in touch
@@ -159,16 +152,10 @@ export default function ContactReel({ onHoverSound, onClickSound, onPlaySuccess 
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Right Column: Contact Form (Matching Reel Frame 11) */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.15 }}
-            className="lg:col-span-7"
-          >
+          <div className="lg:col-span-7">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
@@ -264,7 +251,7 @@ export default function ContactReel({ onHoverSound, onClickSound, onPlaySuccess 
                 )}
               </button>
             </form>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

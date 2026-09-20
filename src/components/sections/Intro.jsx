@@ -1,5 +1,4 @@
 import { GraduationCap, Briefcase, Sparkles } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 const techBadges = [
   'Java', 'Spring Boot', 'Spring Security', 'JWT', 'Microservices', 'Apache Kafka',
@@ -18,34 +17,23 @@ export default function Intro({ onHoverSound }) {
 
       <div className="max-w-7xl mx-auto w-full">
         {/* Section Header: Intro in Chrome Gradient */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="w-full flex justify-start sm:justify-end mb-12 sm:mb-16"
-        >
+        <div className="w-full flex justify-start sm:justify-end mb-12 sm:mb-16">
           <h2 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tight font-display bg-gradient-to-b from-white via-zinc-200 to-zinc-600 bg-clip-text text-transparent">
             Intro
           </h2>
-        </motion.div>
+        </div>
 
         {/* Split Grid: Studio 3D Portrait on Left, Glass Card on Right */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left: 3D Character Stage seamlessly on pure black */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="lg:col-span-5 flex justify-center"
-          >
+          <div className="lg:col-span-5 flex justify-center">
             <div className="relative w-[min(260px,75vw)] sm:w-[360px] md:w-[420px] aspect-[3/4] flex items-end justify-center">
               {/* Static 3D Studio Portrait directly on Pure Black */}
               <img
                 src="/assets/manohar_about.png"
                 alt="Manohar Akuthota - Junior Java Developer"
                 className="w-full h-full object-contain object-bottom filter drop-shadow-[0_25px_45px_rgba(0,0,0,0.95)]"
+                loading="eager"
               />
 
               {/* Floating Pill Badge at Bottom */}
@@ -54,16 +42,10 @@ export default function Intro({ onHoverSound }) {
                 <span className="text-[11px] sm:text-xs font-mono font-bold text-white truncate">Jr. Java Developer @ Keyanna Tech</span>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Right: Sleek Dark 3D Glass Card */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:col-span-7"
-          >
+          <div className="lg:col-span-7">
             <div className="p-5 sm:p-10 rounded-3xl bg-[#0c0c0e]/90 border border-white/10 backdrop-blur-xl shadow-2xl relative overflow-hidden group">
               {/* Card Specular Light */}
               <div className="absolute -top-24 -right-24 w-60 h-60 bg-white/5 rounded-full blur-3xl pointer-events-none group-hover:bg-[#ccff00]/10 transition-colors duration-500" />
@@ -96,17 +78,11 @@ export default function Intro({ onHoverSound }) {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Multi-Row Tech Stack Badges */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="mt-14 sm:mt-20 pt-8 sm:pt-10 border-t border-zinc-900"
-        >
+        <div className="mt-14 sm:mt-20 pt-8 sm:pt-10 border-t border-zinc-900">
           <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 max-w-5xl mx-auto">
             {techBadges.map((badge, idx) => (
               <span
@@ -118,7 +94,7 @@ export default function Intro({ onHoverSound }) {
               </span>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
