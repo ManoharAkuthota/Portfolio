@@ -64,7 +64,7 @@ const ArchitecturalBlueprint = ({ blueprint, onOpenModal }) => {
   const [activeTier, setActiveTier] = useState(0);
 
   return (
-    <div className="relative z-10 h-[410px] sm:h-auto sm:aspect-[16/10] w-full rounded-xl sm:rounded-2xl border border-cyan-500/30 bg-[#050b14] mt-3 sm:mt-3.5 flex flex-col justify-between overflow-hidden shadow-inner select-none">
+    <div className="relative z-10 h-[460px] sm:h-auto sm:aspect-[16/10] w-full rounded-xl sm:rounded-2xl border border-cyan-500/30 bg-[#050b14] mt-3 sm:mt-3.5 flex flex-col justify-between overflow-hidden shadow-inner select-none">
       {/* Blueprint Coordinate Grid Backdrop */}
       <div className="absolute inset-0 opacity-[0.08] bg-[radial-gradient(#00f0ff_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none" />
 
@@ -113,7 +113,10 @@ const ArchitecturalBlueprint = ({ blueprint, onOpenModal }) => {
       </div>
 
       {/* 1. Mobile View: Active Tier Display with Large, High-Contrast Readable Typography */}
-      <div className="md:hidden relative z-10 flex-1 overflow-y-auto px-3 py-2 space-y-2.5">
+      <div
+        className="md:hidden relative z-10 flex-1 overflow-y-auto px-3 py-2 space-y-2.5"
+        style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(0,240,255,0.3) transparent' }}
+      >
         {blueprint.tiers[activeTier] && (
           <div className="rounded-xl bg-zinc-950/90 border border-cyan-500/30 p-3 relative space-y-2.5">
             {/* Header of Active Tier */}
@@ -159,23 +162,34 @@ const ArchitecturalBlueprint = ({ blueprint, onOpenModal }) => {
             </div>
 
             {/* Mobile Tier Navigation Footer */}
-            <div className="flex items-center justify-between pt-2 border-t border-zinc-800/80 text-[10px] font-mono">
+            <div className="flex items-center justify-between pt-1.5 border-t border-zinc-800/80 text-[10px] font-mono">
               <button
                 onClick={() => setActiveTier((prev) => Math.max(0, prev - 1))}
                 disabled={activeTier === 0}
-                className="px-2.5 py-1 rounded bg-zinc-900 text-zinc-300 disabled:opacity-30 hover:text-white cursor-pointer"
+                className="px-2 py-0.5 rounded bg-zinc-900 text-zinc-300 disabled:opacity-25 hover:text-white cursor-pointer transition-colors"
               >
-                ← Prev Tier
+                ← Prev
               </button>
-              <span className="text-cyan-400 font-semibold">
-                TIER 0{activeTier + 1} / 03
-              </span>
+              <div className="flex items-center gap-1.5">
+                {[0, 1, 2].map((dot) => (
+                  <button
+                    key={dot}
+                    onClick={() => setActiveTier(dot)}
+                    className={`w-2 h-2 rounded-full cursor-pointer transition-all ${
+                      activeTier === dot
+                        ? 'bg-cyan-400 scale-125 shadow-[0_0_8px_#00f0ff]'
+                        : 'bg-zinc-700 hover:bg-zinc-500'
+                    }`}
+                    title={`Go to Tier 0${dot + 1}`}
+                  />
+                ))}
+              </div>
               <button
                 onClick={() => setActiveTier((prev) => Math.min(2, prev + 1))}
                 disabled={activeTier === 2}
-                className="px-2.5 py-1 rounded bg-zinc-900 text-zinc-300 disabled:opacity-30 hover:text-white cursor-pointer"
+                className="px-2 py-0.5 rounded bg-zinc-900 text-zinc-300 disabled:opacity-25 hover:text-white cursor-pointer transition-colors"
               >
-                Next Tier →
+                Next →
               </button>
             </div>
           </div>
