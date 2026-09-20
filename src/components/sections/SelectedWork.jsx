@@ -62,105 +62,110 @@ const EditorialSeal = ({ className = "w-24 h-24" }) => (
 
 const ArchitecturalBlueprint = ({ blueprint }) => {
   return (
-    <div className="relative z-10 w-full min-h-[460px] md:min-h-[420px] rounded-xl sm:rounded-2xl border border-cyan-500/30 bg-[#050b14] mt-3 sm:mt-3.5 p-3.5 sm:p-5 flex flex-col justify-between overflow-hidden shadow-2xl">
+    <div className="relative z-10 aspect-[16/10] w-full rounded-xl sm:rounded-2xl border border-cyan-500/30 bg-[#050b14] mt-3 sm:mt-3.5 flex flex-col justify-between overflow-hidden shadow-inner select-none">
       {/* Blueprint Coordinate Grid Backdrop */}
       <div className="absolute inset-0 opacity-[0.08] bg-[radial-gradient(#00f0ff_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none" />
 
-      {/* CAD Registration Crosshairs & Border Rulers */}
-      <span className="absolute top-2 left-3 text-[9px] font-mono text-cyan-600 select-none pointer-events-none">+ CAD SPEC</span>
-      <span className="absolute top-2 right-3 text-[9px] font-mono text-cyan-600 select-none pointer-events-none">DWG: {blueprint.drawingNo}</span>
-
-      {/* Top Header */}
-      <div className="relative z-10 flex items-center justify-between border-b border-cyan-500/25 pb-2.5 mb-3 text-[10px] font-mono">
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_#00f0ff]" />
-          <span className="text-cyan-300 font-bold tracking-wider">{blueprint.title}</span>
+      {/* Fixed CAD Top Header */}
+      <div className="relative z-20 shrink-0 px-3 sm:px-4 py-2 border-b border-cyan-500/25 bg-[#050b14]/95 flex items-center justify-between text-[10px] font-mono">
+        <div className="flex items-center gap-2 truncate min-w-0">
+          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_#00f0ff] shrink-0" />
+          <span className="text-cyan-300 font-bold tracking-wider truncate">{blueprint.title}</span>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-emerald-400 font-bold px-2 py-0.5 rounded bg-emerald-950/60 border border-emerald-800/40 text-[9px]">
-            ● PRODUCTION VERIFIED
+        <div className="flex items-center gap-2 shrink-0">
+          <span className="text-[8px] sm:text-[9px] font-mono text-cyan-400/90 border border-cyan-500/30 px-2 py-0.5 rounded-full bg-cyan-950/60 flex items-center gap-1 animate-pulse">
+            <span>↕</span>
+            <span>SCROLL BLUEPRINT</span>
+          </span>
+          <span className="text-emerald-400 font-bold px-1.5 py-0.5 rounded bg-emerald-950/60 border border-emerald-800/40 text-[8px] sm:text-[9px] hidden sm:inline">
+            ● LIVE
           </span>
         </div>
       </div>
 
-      {/* 3-Tier Architectural Node Graph */}
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-3.5 my-auto py-1">
-        {blueprint.tiers.map((tier, tIdx) => (
-          <div
-            key={tIdx}
-            className="flex flex-col rounded-xl bg-zinc-950/85 border border-cyan-500/20 p-2.5 sm:p-3 relative group/tier hover:border-cyan-400/50 transition-colors"
-          >
-            {/* Tier Masthead Banner */}
-            <div className="flex items-center justify-between pb-2 mb-2 border-b border-zinc-800/80 text-[10px] font-mono">
-              <span className="text-cyan-400 font-bold tracking-wider">
-                {tier.tierLabel}
-              </span>
-              <span className="text-[9px] px-1.5 py-0.5 rounded bg-cyan-950/70 border border-cyan-800/50 text-cyan-300">
-                {tier.badge}
-              </span>
-            </div>
+      {/* Scrollable Architectural 3-Tier Flowchart Body */}
+      <div
+        className="relative z-10 flex-1 overflow-y-auto p-3 sm:p-4 space-y-3"
+        style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(0,240,255,0.4) transparent' }}
+      >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 sm:gap-3 items-stretch">
+          {blueprint.tiers.map((tier, tIdx) => (
+            <div
+              key={tIdx}
+              className="flex flex-col rounded-xl bg-zinc-950/85 border border-cyan-500/20 p-2.5 sm:p-3 relative group/tier hover:border-cyan-400/50 transition-colors"
+            >
+              {/* Tier Masthead Banner */}
+              <div className="flex items-center justify-between pb-1.5 mb-2 border-b border-zinc-800/80 text-[10px] font-mono">
+                <span className="text-cyan-400 font-bold tracking-wider truncate">
+                  {tier.tierLabel}
+                </span>
+                <span className="text-[8px] sm:text-[9px] px-1.5 py-0.5 rounded bg-cyan-950/70 border border-cyan-800/50 text-cyan-300 shrink-0">
+                  {tier.badge}
+                </span>
+              </div>
 
-            {/* Nodes inside this tier */}
-            <div className="space-y-2 flex-1 flex flex-col justify-center">
-              {tier.nodes.map((node, nIdx) => (
-                <div
-                  key={nIdx}
-                  className="p-2 rounded-lg bg-black/75 border border-white/10 hover:border-[#ccff00]/40 transition-colors"
-                >
-                  <div className="flex items-center justify-between gap-1 text-[10px] font-mono">
-                    <span className="font-bold text-white group-hover/tier:text-cyan-200 truncate">
-                      {node.name}
-                    </span>
-                    <span className="text-[8px] font-mono px-1 py-0.2 rounded bg-zinc-900 border border-zinc-700 text-[#ccff00] shrink-0">
-                      {node.port}
-                    </span>
-                  </div>
-                  <p className="text-[9.5px] text-zinc-400 leading-tight mt-1 line-clamp-2">
-                    {node.role}
-                  </p>
-                  <div className="flex flex-wrap gap-1 mt-1.5">
-                    {node.tech.map((tc, tcIdx) => (
-                      <span key={tcIdx} className="text-[8px] font-mono text-zinc-400 px-1 rounded bg-zinc-900/90 border border-zinc-800">
-                        {tc}
+              {/* Nodes inside this tier */}
+              <div className="space-y-2 flex-1 flex flex-col justify-center">
+                {tier.nodes.map((node, nIdx) => (
+                  <div
+                    key={nIdx}
+                    className="p-2 rounded-lg bg-black/75 border border-white/10 hover:border-[#ccff00]/40 transition-colors"
+                  >
+                    <div className="flex items-center justify-between gap-1 text-[10px] font-mono">
+                      <span className="font-bold text-white group-hover/tier:text-cyan-200 truncate">
+                        {node.name}
                       </span>
-                    ))}
+                      <span className="text-[8px] font-mono px-1 py-0.2 rounded bg-zinc-900 border border-zinc-700 text-[#ccff00] shrink-0">
+                        {node.port}
+                      </span>
+                    </div>
+                    <p className="text-[9.5px] text-zinc-400 leading-tight mt-1 line-clamp-2">
+                      {node.role}
+                    </p>
+                    <div className="flex flex-wrap gap-1 mt-1.5">
+                      {node.tech.map((tc, tcIdx) => (
+                        <span key={tcIdx} className="text-[8px] font-mono text-zinc-400 px-1 rounded bg-zinc-900/90 border border-zinc-800">
+                          {tc}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
 
-            {/* Inter-Tier Flow Connector Arrow */}
-            {tIdx < 2 && (
-              <div className="hidden md:flex absolute -right-2.5 top-1/2 -translate-y-1/2 z-20 w-5 h-5 rounded-full bg-cyan-950 border border-cyan-400 items-center justify-center text-[10px] text-cyan-300 font-bold shadow-[0_0_8px_#00f0ff80]">
-                ➔
-              </div>
-            )}
-            {tIdx < 2 && (
-              <div className="flex md:hidden items-center justify-center py-1 text-cyan-400 text-xs font-mono font-bold">
-                ▼ {tier.flowLabel} ▼
-              </div>
-            )}
-          </div>
-        ))}
+              {/* Inter-Tier Flow Connector Arrow */}
+              {tIdx < 2 && (
+                <div className="hidden md:flex absolute -right-2.5 top-1/2 -translate-y-1/2 z-20 w-5 h-5 rounded-full bg-cyan-950 border border-cyan-400 items-center justify-center text-[10px] text-cyan-300 font-bold shadow-[0_0_8px_#00f0ff80]">
+                  ➔
+                </div>
+              )}
+              {tIdx < 2 && (
+                <div className="flex md:hidden items-center justify-center py-1 text-cyan-400 text-[9px] font-mono font-bold">
+                  ▼ {tier.flowLabel} ▼
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* Classic CAD Blueprint Title Block */}
-      <div className="relative z-10 grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2.5 mt-3 border-t border-cyan-500/25 text-[9px] font-mono text-zinc-400">
+      {/* Fixed CAD Bottom Title Block */}
+      <div className="relative z-20 shrink-0 px-3 sm:px-4 py-1.5 border-t border-cyan-500/25 bg-[#050b14]/95 grid grid-cols-2 sm:grid-cols-4 gap-2 text-[9px] font-mono text-zinc-400">
         <div>
-          <span className="text-zinc-500 block text-[8px] uppercase">DRAWING NO</span>
-          <span className="text-cyan-300 font-bold">{blueprint.drawingNo}</span>
+          <span className="text-zinc-500 block text-[7px] uppercase">DRAWING NO</span>
+          <span className="text-cyan-300 font-bold text-[8px] sm:text-[9px]">{blueprint.drawingNo}</span>
         </div>
         <div>
-          <span className="text-zinc-500 block text-[8px] uppercase">SYSTEM PROTOCOL</span>
-          <span className="text-zinc-300 font-semibold truncate block">{blueprint.protocol}</span>
+          <span className="text-zinc-500 block text-[7px] uppercase">PROTOCOL</span>
+          <span className="text-zinc-300 font-semibold truncate block text-[8px] sm:text-[9px]">{blueprint.protocol}</span>
         </div>
         <div>
-          <span className="text-zinc-500 block text-[8px] uppercase">TOPOLOGY ARCHITECT</span>
-          <span className="text-zinc-200 font-semibold">MANOHAR AKUTHOTA</span>
+          <span className="text-zinc-500 block text-[7px] uppercase">ARCHITECT</span>
+          <span className="text-zinc-200 font-semibold text-[8px] sm:text-[9px]">MANOHAR AKUTHOTA</span>
         </div>
         <div>
-          <span className="text-zinc-500 block text-[8px] uppercase">VERIFICATION</span>
-          <span className="text-emerald-400 font-bold">100% ACID & SLA PASS</span>
+          <span className="text-zinc-500 block text-[7px] uppercase">STATUS</span>
+          <span className="text-emerald-400 font-bold text-[8px] sm:text-[9px]">100% OPERATIONAL</span>
         </div>
       </div>
     </div>
