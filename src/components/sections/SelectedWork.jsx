@@ -1,4 +1,5 @@
-import { ArrowUpRight } from 'lucide-react';
+import { useState, useEffect, useCallback } from 'react';
+import { ArrowUpRight, X, ChevronLeft, ChevronRight, Maximize2, Cpu, Eye } from 'lucide-react';
 
 const GithubIcon = ({ size = 14 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -37,9 +38,41 @@ const BarcodeSvg = ({ className = "h-5 w-auto text-zinc-400" }) => (
   </svg>
 );
 
+const EditorialSeal = ({ className = "w-24 h-24" }) => (
+  <div className={`relative flex items-center justify-center ${className} select-none pointer-events-none`}>
+    <svg className="w-full h-full animate-[spin_50s_linear_infinite]" viewBox="0 0 120 120">
+      <defs>
+        <path id="sealPath" d="M 60,60 m -44,0 a 44,44 0 1,1 88,0 a 44,44 0 1,1 -88,0" />
+      </defs>
+      <circle cx="60" cy="60" r="55" fill="none" stroke="#ccff00" strokeWidth="1" strokeDasharray="3 3" opacity="0.3" />
+      <circle cx="60" cy="60" r="48" fill="none" stroke="#ccff00" strokeWidth="0.75" opacity="0.5" />
+      <circle cx="60" cy="60" r="38" fill="none" stroke="#ccff00" strokeWidth="0.5" opacity="0.25" />
+      <text fill="#ccff00" fontSize="7.5" fontFamily="monospace" letterSpacing="2.2" opacity="0.8">
+        <textPath href="#sealPath">
+          • VERIFIED PRODUCTION ARCHITECTURE • MANOHAR • 2026 •
+        </textPath>
+      </text>
+    </svg>
+    <div className="absolute flex flex-col items-center justify-center text-center">
+      <span className="text-[10px] font-black font-mono text-[#ccff00] leading-none">MA</span>
+      <span className="text-[6.5px] font-mono text-zinc-400 tracking-wider mt-0.5">ARCHIVE</span>
+    </div>
+  </div>
+);
+
+const categories = [
+  { id: 'all', label: 'All Curated Spreads', count: '05' },
+  { id: 'ai', label: 'Autonomous AI & Vision', count: '02' },
+  { id: 'enterprise', label: 'Enterprise Java & CPaaS', count: '02' },
+  { id: 'commerce', label: 'Omnichannel Commerce', count: '01' },
+];
+
 const projects = [
   {
     number: '01',
+    id: 'project-01',
+    category: 'ai',
+    department: 'DEPARTMENT // APPLIED AI & AUTOMATION',
     title: 'AI JOB APPLICATION BOT & ATS PLATFORM',
     italicWord: 'AI',
     subtitle: 'Full-Stack Java / React 19 • Autonomous Agent Engine',
@@ -49,6 +82,11 @@ const projects = [
     demoUrl: 'https://manohar-ai-job-frontend.onrender.com',
     githubUrl: 'https://github.com/ManoharAkuthota/ai-job-agent',
     leadQuote: 'An autonomous full-stack intelligence engine orchestrating private local LLMs with Playwright to achieve 99.4% ATS precision at zero token cost.',
+    keyMetrics: [
+      { val: '99.4%', label: 'ATS MATCH RATE', pct: 99 },
+      { val: '0-Token', label: 'LOCAL INFERENCE', pct: 100 },
+      { val: '100%', label: 'PLAYWRIGHT VERIFIED', pct: 100 },
+    ],
     specs: {
       'Core Architecture': 'Spring Boot 3 • Java 21',
       'Client Interface': 'React 19 • Tailwind CSS',
@@ -61,9 +99,23 @@ const projects = [
       'Architected Spring Boot REST endpoints managing job queues, application state history, and candidate credentials securely.',
     ],
     tags: ['Spring Boot 3', 'React 19', 'MySQL', 'Local Ollama Llama 3', 'Google Gemini', 'Playwright', 'ATS Matching', 'Render'],
+    blueprint: {
+      title: 'AUTONOMOUS RECRUITING & ATS INFERENCE PIPELINE',
+      protocol: 'HTTP/2 REST • LOCAL OLLAMA IPC • PLAYWRIGHT CDP',
+      stages: [
+        { label: '01 / INGEST', name: 'Candidate Bio & Resume Parser', desc: 'Converts unstructured CV text into structured semantic JSON profile.' },
+        { label: '02 / INFERENCE', name: 'Local Ollama Llama 3 Engine', desc: 'Zero-token local inference produces tailored motivation briefs.' },
+        { label: '03 / EVALUATION', name: 'ATS Semantic Keyword Scorer', desc: 'Computes cosine relevance to target 99.4% pass threshold.' },
+        { label: '04 / DISPATCH', name: 'Playwright Headless Automation', desc: 'In-browser form filling, dynamic input typing & screenshot OCR.' },
+        { label: '05 / AUDIT', name: 'MySQL Cloud Execution Ledger', desc: 'Logs immutable audit trail, portal receipt & submission status.' },
+      ],
+    },
   },
   {
     number: '02',
+    id: 'project-02',
+    category: 'commerce',
+    department: 'DEPARTMENT // OMNICHANNEL COMMERCE & FINTECH',
     title: 'MS MOBILES — OMNICHANNEL E-COMMERCE',
     italicWord: 'MOBILES',
     subtitle: 'Full-Stack Java / React 18 / Capacitor • Native Mobile & Web',
@@ -73,6 +125,11 @@ const projects = [
     demoUrl: 'https://ms-mobiles-frontend.onrender.com/',
     githubUrl: 'https://github.com/ManoharAkuthota/Ecommerce',
     leadQuote: 'Enterprise smartphone retail ecosystem pairing modern capacitive mobile experiences with statutory Indian GST tax invoice computation.',
+    keyMetrics: [
+      { val: 'HSN 8517', label: 'STATUTORY TAX CODE', pct: 100 },
+      { val: 'Capacitor 8', label: 'ANDROID & PWA', pct: 95 },
+      { val: 'AWS Cloud', label: 'TIDB REPLICATION', pct: 98 },
+    ],
     specs: {
       'Enterprise Core': 'Spring Boot 3 • Spring Security 6',
       'Client Platform': 'React 18 • Capacitor 8 Native',
@@ -85,9 +142,23 @@ const projects = [
       'Packaged the storefront into a native Android app via Capacitor 8 with offline PWA caching and Cloudinary CDN optimization.',
     ],
     tags: ['Spring Boot 3', 'React 18', 'TiDB Cloud (AWS MySQL)', 'Spring Security 6', 'JWT', 'Capacitor 8', 'jsPDF', 'Cloudinary CDN'],
+    blueprint: {
+      title: 'OMNICHANNEL COMMERCE & STATUTORY FINTECH ENGINE',
+      protocol: 'CAPACITOR 8 BRIDGE • SPRING SECURITY 6 • TIDB AWS',
+      stages: [
+        { label: '01 / CLIENT', name: 'Capacitor 8 Mobile & React PWA', desc: 'Single codebase powering native Android APK and high-speed web.' },
+        { label: '02 / SECURITY', name: 'Spring Security 6 Stateless JWT', desc: 'Role-based access guard for administrative and checkout routes.' },
+        { label: '03 / FINTECH', name: 'HSN 8517 Statutory GST Engine', desc: 'Dual 9% CGST + 9% SGST calculation with rupee word currency.' },
+        { label: '04 / INVOICE', name: 'Automated jsPDF Document Pipeline', desc: 'Instant downloadable statutory tax invoice with tax QR tokens.' },
+        { label: '05 / STORAGE', name: 'TiDB Cloud AWS & Cloudinary CDN', desc: 'Distributed SQL transaction safety with global image edge caches.' },
+      ],
+    },
   },
   {
     number: '03',
+    id: 'project-03',
+    category: 'enterprise',
+    department: 'DEPARTMENT // ENTERPRISE BANKING & DISTRIBUTED SYSTEMS',
     title: 'APEX TRUST — CORE BANKING PLATFORM',
     italicWord: 'TRUST',
     subtitle: 'Full-Stack Java 21 / Angular 19 • Enterprise Core Banking & Ledger',
@@ -97,6 +168,11 @@ const projects = [
     demoUrl: 'https://apex-trust-frontend.onrender.com/',
     githubUrl: 'https://github.com/ManoharAkuthota/BankingApplication',
     leadQuote: 'Mission-critical FinTech banking platform built with dual-entry ledger precision, BCrypt encryption, and 4-tier Role-Based Access Control.',
+    keyMetrics: [
+      { val: '99.98%', label: 'API AVAILABILITY', pct: 99 },
+      { val: '4 Tiers', label: 'RBAC SECURITY', pct: 100 },
+      { val: 'ACID', label: 'DUAL-ENTRY LEDGER', pct: 100 },
+    ],
     specs: {
       'Banking Core': 'Spring Boot 3 • Java 21',
       'Operations UI': 'Angular 19 • Glassmorphism',
@@ -109,9 +185,23 @@ const projects = [
       'Designed glassmorphic operations dashboard featuring live financial volume charts and holographic vault verification.',
     ],
     tags: ['Spring Boot 3 (Java 21)', 'Angular 19', 'TiDB Serverless', 'Liquibase', 'Docker', 'JWT / RBAC', 'Render'],
+    blueprint: {
+      title: 'MISSION-CRITICAL CORE BANKING & DUAL-ENTRY LEDGER',
+      protocol: 'ANGULAR 19 HTTP • SPRING BOOT 3 (JAVA 21) • LIQUIBASE',
+      stages: [
+        { label: '01 / PORTAL', name: 'Angular 19 Operations Dashboard', desc: 'Real-time liquidity and ledger monitoring with biometric auth styling.' },
+        { label: '02 / ACCESS', name: '4-Tier Role Guard (Admin/Teller/User)', desc: 'Fine-grained RBAC filters preventing unauthorized vault mutations.' },
+        { label: '03 / LEDGER', name: 'Dual-Entry ACID Transaction Engine', desc: 'Guaranteed atomicity across debit and credit journal entries.' },
+        { label: '04 / VAULT', name: 'BCrypt Salting & Cryptographic Key Store', desc: 'Secure credential hashing and tamper-proof user audit trails.' },
+        { label: '05 / LIFECYCLE', name: 'Liquibase & TiDB Serverless Cloud', desc: 'Automated database versioning and zero-downtime schema rollouts.' },
+      ],
+    },
   },
   {
     number: '04',
+    id: 'project-04',
+    category: 'enterprise',
+    department: 'DEPARTMENT // TELECOM BACKEND & KAFKA EVENT CLUSTERS',
     title: 'PRODUCTION CPaaS MICROSERVICES',
     italicWord: 'CPaaS',
     subtitle: 'Event-Driven Communications Platform (Keyanna Technologies)',
@@ -120,6 +210,11 @@ const projects = [
     demoUrl: 'https://github.com/ManoharAkuthota',
     githubUrl: 'https://github.com/ManoharAkuthota',
     leadQuote: 'High-throughput Communications Platform as a Service backend streaming real-time SMS & WhatsApp events across Kafka clusters.',
+    keyMetrics: [
+      { val: '45.8K/s', label: 'KAFKA THROUGHPUT', pct: 96 },
+      { val: '< 12ms', label: 'GATEWAY DISPATCH', pct: 98 },
+      { val: '99.99%', label: 'CARRIER SLA', pct: 100 },
+    ],
     specs: {
       'Organization': 'Keyanna Technologies',
       'Architecture': 'Spring Boot Microservices',
@@ -132,9 +227,23 @@ const projects = [
       'Implemented secure token authorization flows with Spring Security and JWT-based authentication.',
     ],
     tags: ['Java', 'Spring Boot', 'Apache Kafka', 'JWT', 'Microservices', 'Spring Security', 'REST APIs'],
+    blueprint: {
+      title: 'EVENT-DRIVEN CPaaS MESSAGE DISPATCH CLUSTER',
+      protocol: 'REST INGRESS • APACHE KAFKA CLUSTER • TELCO SMPP',
+      stages: [
+        { label: '01 / INGRESS', name: 'High-Concurrency REST API Gateway', desc: 'Sub-12ms ingress handling bulk customer dispatch requests.' },
+        { label: '02 / BROKER', name: 'Apache Kafka Clustered Topic Bus', desc: 'Partitioned event streaming preventing message backpressure loss.' },
+        { label: '03 / WORKERS', name: 'Spring Boot Consumer Daemon Threads', desc: 'Dynamic load balancing across SMS and WhatsApp outbound queues.' },
+        { label: '04 / CARRIER', name: 'Tier-1 Telco SMPP Gateway Trunk', desc: 'Direct carrier integration with failover routing and retry policies.' },
+        { label: '05 / STATUS', name: 'Live Webhook & Delivery SLA Monitor', desc: 'Immediate carrier delivery receipts and SLA uptime telemetry.' },
+      ],
+    },
   },
   {
     number: '05',
+    id: 'project-05',
+    category: 'ai',
+    department: 'DEPARTMENT // EDGE COMPUTER VISION & SAFETY AI',
     title: 'DRIVER DROWSINESS DETECTION',
     italicWord: 'DROWSINESS',
     subtitle: 'Real-Time Computer Vision AI Safety Platform (Python / OpenCV)',
@@ -143,6 +252,11 @@ const projects = [
     demoUrl: 'https://github.com/ManoharAkuthota/Drowsiness_Detection',
     githubUrl: 'https://github.com/ManoharAkuthota/Drowsiness_Detection',
     leadQuote: 'Real-time edge computer vision safety system tracking 68 ocular facial landmarks to compute Eye Aspect Ratio and prevent micro-sleep.',
+    keyMetrics: [
+      { val: '68 Points', label: 'FACIAL LANDMARK MESH', pct: 100 },
+      { val: '60 FPS', label: 'REAL-TIME VISION', pct: 95 },
+      { val: '98.7%', label: 'FATIGUE DETECTION', pct: 98 },
+    ],
     specs: {
       'Vision Pipeline': 'OpenCV • Python • Dlib',
       'Landmark Tracking': '68-Point Facial Mesh',
@@ -155,10 +269,72 @@ const projects = [
       'Optimized for low-latency embedded automotive edge hardware, operating consistently at 60 FPS.',
     ],
     tags: ['Python', 'OpenCV', 'Dlib', 'Computer Vision', 'Deep Learning', 'AI Safety', 'NumPy'],
+    blueprint: {
+      title: 'REAL-TIME EDGE COMPUTER VISION & OCULAR FATIGUE PIPELINE',
+      protocol: 'OPENCV 60 FPS • DLIB 68 LANDMARKS • ACOUSTIC ALARM',
+      stages: [
+        { label: '01 / CAPTURE', name: 'Cabin Optical Feed Normalization', desc: 'High-speed 60 FPS video frame acquisition and illumination leveling.' },
+        { label: '02 / DETECT', name: 'Dlib 68-Point Facial Landmark Mesh', desc: 'Precise extraction of eyelid contour and oral perimeter vectors.' },
+        { label: '03 / COMPUTE', name: 'EAR & MAR Mathematical Calculus', desc: 'Real-time aspect ratio computation measuring vertical ocular opening.' },
+        { label: '04 / FILTER', name: 'Temporal Micro-Sleep Fatigue Gate', desc: 'State filter evaluating consecutive frame drops below 0.25 threshold.' },
+        { label: '05 / ALARM', name: 'Acoustic Sounder & Visual HUD Actuator', desc: 'Immediate emergency alert buzzer triggering to awaken operator.' },
+      ],
+    },
   },
 ];
 
 export default function SelectedWork({ onHoverSound, onClickSound }) {
+  const [activeCategory, setActiveCategory] = useState('all');
+  const [activePlateView, setActivePlateView] = useState({}); // { [number]: 'photo' | 'blueprint' }
+  const [inspectIndex, setInspectIndex] = useState(null); // null or index 0..4
+
+  const filteredProjects = activeCategory === 'all'
+    ? projects
+    : projects.filter((p) => p.category === activeCategory);
+
+  const togglePlateView = (number, view) => {
+    if (onClickSound) onClickSound();
+    setActivePlateView((prev) => ({ ...prev, [number]: view }));
+  };
+
+  const openInspectionModal = (index) => {
+    if (onClickSound) onClickSound();
+    setInspectIndex(index);
+  };
+
+  const closeInspectionModal = useCallback(() => {
+    if (onClickSound) onClickSound();
+    setInspectIndex(null);
+  }, [onClickSound]);
+
+  const nextInspect = useCallback(() => {
+    if (onClickSound) onClickSound();
+    setInspectIndex((prev) => (prev === null ? 0 : (prev + 1) % projects.length));
+  }, [onClickSound]);
+
+  const prevInspect = useCallback(() => {
+    if (onClickSound) onClickSound();
+    setInspectIndex((prev) => (prev === null ? 0 : (prev - 1 + projects.length) % projects.length));
+  }, [onClickSound]);
+
+  // Handle keyboard events for inspection modal
+  useEffect(() => {
+    if (inspectIndex === null) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') closeInspectionModal();
+      if (e.key === 'ArrowRight') nextInspect();
+      if (e.key === 'ArrowLeft') prevInspect();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [inspectIndex, closeInspectionModal, nextInspect, prevInspect]);
+
+  const activeInspectProject = inspectIndex !== null ? projects[inspectIndex] : null;
+
   return (
     <section
       id="work"
@@ -166,7 +342,7 @@ export default function SelectedWork({ onHoverSound, onClickSound }) {
     >
       <div className="max-w-7xl mx-auto w-full">
         {/* Magazine Masthead Section Header */}
-        <div className="border-b border-zinc-800 pb-10 sm:pb-14 mb-14 sm:mb-24">
+        <div className="border-b border-zinc-800 pb-10 sm:pb-14 mb-10 sm:mb-14">
           <div className="flex items-center justify-between text-xs font-mono text-zinc-500 uppercase tracking-widest pb-4">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#ccff00] animate-pulse" />
@@ -199,237 +375,430 @@ export default function SelectedWork({ onHoverSound, onClickSound }) {
                 A curated editorial catalogue of production microservices, full-stack ecosystems, and autonomous artificial intelligence engines engineered by Manohar Akuthota.
               </p>
 
-              <a
-                href="https://github.com/ManoharAkuthota"
-                target="_blank"
-                rel="noopener noreferrer"
-                onMouseEnter={onHoverSound}
-                onClick={onClickSound}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#ccff00] text-black font-semibold text-xs sm:text-sm hover:bg-white hover:scale-105 transition-all duration-300 shadow-md"
-              >
-                <span>View Full Index on GitHub</span>
-                <ArrowUpRight size={15} />
-              </a>
+              <div className="flex flex-wrap items-center gap-3">
+                <a
+                  href="https://github.com/ManoharAkuthota"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onMouseEnter={onHoverSound}
+                  onClick={onClickSound}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#ccff00] text-black font-semibold text-xs sm:text-sm hover:bg-white hover:scale-105 transition-all duration-300 shadow-md cursor-pointer"
+                >
+                  <span>View Full Index on GitHub</span>
+                  <ArrowUpRight size={15} />
+                </a>
+
+                <button
+                  onClick={() => openInspectionModal(0)}
+                  onMouseEnter={onHoverSound}
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-zinc-900 border border-zinc-700 text-zinc-300 font-mono text-xs hover:border-[#ccff00] hover:text-white transition-all cursor-pointer"
+                >
+                  <Eye size={13} className="text-[#ccff00]" />
+                  <span>Inspect Spreads [⤢]</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Magazine Editorial Spreads */}
-        <div className="space-y-20 sm:space-y-36">
-          {projects.map((project, idx) => {
-            const isEven = idx % 2 === 0;
-
+        {/* Editorial Department Filter Tabs */}
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-6">
+          <span className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider mr-2 hidden sm:inline-block">
+            EDITORIAL DEPARTMENTS:
+          </span>
+          {categories.map((cat) => {
+            const isActive = activeCategory === cat.id;
             return (
-              <div
-                key={project.number}
-                className={`grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center ${
-                  isEven ? '' : 'lg:flex-row-reverse'
+              <button
+                key={cat.id}
+                onClick={() => {
+                  setActiveCategory(cat.id);
+                  if (onClickSound) onClickSound();
+                }}
+                onMouseEnter={onHoverSound}
+                className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-mono font-semibold transition-all duration-300 flex items-center gap-2 cursor-pointer ${
+                  isActive
+                    ? 'bg-[#ccff00] text-black shadow-lg shadow-[#ccff00]/20 scale-105'
+                    : 'bg-zinc-950/80 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-600'
                 }`}
               >
-                {/* Magazine Visual Plate Card */}
-                <div
-                  className={`lg:col-span-7 ${
-                    isEven ? 'order-1' : 'order-1 lg:order-2'
+                <span>{cat.label}</span>
+                <span
+                  className={`text-[10px] px-1.5 py-0.5 rounded-full font-mono ${
+                    isActive ? 'bg-black text-[#ccff00]' : 'bg-zinc-800 text-zinc-400'
                   }`}
                 >
-                  <div className="relative rounded-2xl sm:rounded-3xl p-3 sm:p-4 bg-[#0a0a0d] border border-white/15 shadow-[0_25px_60px_rgba(0,0,0,0.9)] group">
-                    {/* Magazine Print Registration Crosshairs */}
-                    <span className="absolute top-1.5 left-2 text-[10px] font-mono text-zinc-600 select-none pointer-events-none group-hover:text-[#ccff00] transition-colors">+</span>
-                    <span className="absolute top-1.5 right-2 text-[10px] font-mono text-zinc-600 select-none pointer-events-none group-hover:text-[#ccff00] transition-colors">+</span>
-                    <span className="absolute bottom-1.5 left-2 text-[10px] font-mono text-zinc-600 select-none pointer-events-none group-hover:text-[#ccff00] transition-colors">+</span>
-                    <span className="absolute bottom-1.5 right-2 text-[10px] font-mono text-zinc-600 select-none pointer-events-none group-hover:text-[#ccff00] transition-colors">+</span>
+                  {cat.count}
+                </span>
+              </button>
+            );
+          })}
+        </div>
 
-                    {/* Top Editorial Plate Header */}
-                    <div className="flex items-center justify-between px-2 pb-2.5 sm:pb-3 border-b border-white/10 text-[10px] sm:text-[11px] font-mono text-zinc-400">
-                      <div className="flex items-center gap-2">
-                        <span className="text-[#ccff00] font-bold">VOL. 2026</span>
-                        <span className="text-zinc-600">//</span>
-                        <span>ISSUE {project.number}</span>
-                      </div>
-                      <div className="hidden sm:block text-[9px] uppercase tracking-widest text-zinc-500">
-                        MANOHAR AKUTHOTA ARCHIVE
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-zinc-500">PLATE</span>
-                        <span className="text-white font-bold">{project.number} / 05</span>
-                      </div>
+        {/* Magazine Folio Quick-Bar (Table of Contents Jump Strip) */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-12 sm:mb-16 border-b border-zinc-900/90 text-[11px] font-mono scrollbar-none">
+          <span className="text-zinc-600 uppercase tracking-wider shrink-0 mr-1">
+            FOLIO INDEX:
+          </span>
+          {projects.map((proj, pIdx) => (
+            <a
+              key={proj.number}
+              href={`#${proj.id}`}
+              onMouseEnter={onHoverSound}
+              onClick={onClickSound}
+              className="px-2.5 py-1 rounded-md bg-zinc-950/90 border border-zinc-900 hover:border-[#ccff00]/50 text-zinc-400 hover:text-[#ccff00] transition-colors whitespace-nowrap shrink-0 flex items-center gap-1.5"
+            >
+              <span className="text-[#ccff00] font-bold">0{pIdx + 1}</span>
+              <span>{proj.title.split('—')[0].split('&')[0].trim()}</span>
+            </a>
+          ))}
+        </div>
+
+        {/* Magazine Editorial Spreads */}
+        <div className="space-y-16 sm:space-y-24">
+          {filteredProjects.map((project, idx) => {
+            const isEven = idx % 2 === 0;
+            const currentPlateView = activePlateView[project.number] || 'photo';
+            const globalIndex = projects.findIndex((p) => p.number === project.number);
+
+            return (
+              <div key={project.number} id={project.id} className="scroll-mt-24">
+                {/* Inter-Spread Divider (Between Projects) */}
+                {idx > 0 && (
+                  <div className="relative flex items-center justify-center my-14 sm:my-24">
+                    <div className="w-full border-t border-zinc-900" />
+                    <div className="absolute px-4 bg-black flex items-center gap-3 text-[10px] font-mono text-zinc-600 uppercase tracking-widest">
+                      <span className="text-zinc-700">+</span>
+                      <span>SPREAD ARCHIVE 2026</span>
+                      <span>•</span>
+                      <span>FOLIO {project.number}</span>
+                      <span className="text-zinc-700">+</span>
                     </div>
+                  </div>
+                )}
 
-                    {/* Inner Framed Photographic Showcase */}
-                    <a
-                      href={project.demoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onMouseEnter={onHoverSound}
-                      onClick={onClickSound}
-                      className="block relative aspect-[16/10] w-full overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-zinc-950 mt-3 sm:mt-3.5 cursor-pointer"
-                    >
-                      {/* High-Resolution Enhanced Photograph */}
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-700 ease-out filter contrast-[1.03] brightness-[0.98]"
-                        loading="lazy"
-                      />
+                <div
+                  className={`grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center ${
+                    isEven ? '' : 'lg:flex-row-reverse'
+                  }`}
+                >
+                  {/* Magazine Visual Plate Card */}
+                  <div
+                    className={`lg:col-span-7 ${
+                      isEven ? 'order-1' : 'order-1 lg:order-2'
+                    }`}
+                  >
+                    <div className="relative rounded-2xl sm:rounded-3xl p-3.5 sm:p-4 bg-[#0a0a0d] border border-white/15 shadow-[0_25px_60px_rgba(0,0,0,0.9)] group overflow-hidden">
+                      {/* Ghost Folio Number Watermark in Background */}
+                      <span className="absolute -bottom-6 -right-2 text-[100px] sm:text-[140px] font-black font-display text-white/[0.03] select-none pointer-events-none leading-none z-0">
+                        {project.number}
+                      </span>
 
-                      {/* Glossy Magazine Paper Sheen Reflection */}
-                      <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out bg-gradient-to-r from-transparent via-white/[0.12] to-transparent pointer-events-none" />
+                      {/* Tactile Magazine Paper Texture */}
+                      <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#fff_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none rounded-2xl sm:rounded-3xl" />
 
-                      {/* Top Badge Overlay */}
-                      <div className="absolute top-3 sm:top-4 left-3 sm:left-4 z-20 flex items-center gap-2 px-3 py-1 rounded-full bg-black/85 border border-white/15 backdrop-blur-md shadow-lg">
-                        <span className="w-2 h-2 rounded-full bg-[#ccff00] animate-pulse" />
-                        <span className="text-[10px] sm:text-xs font-mono font-bold text-white tracking-wider">
-                          {project.badge}
-                        </span>
-                      </div>
+                      {/* Magazine Print Registration Crosshairs */}
+                      <span className="absolute top-1.5 left-2 text-[10px] font-mono text-zinc-600 select-none pointer-events-none group-hover:text-[#ccff00] transition-colors z-10">+</span>
+                      <span className="absolute top-1.5 right-2 text-[10px] font-mono text-zinc-600 select-none pointer-events-none group-hover:text-[#ccff00] transition-colors z-10">+</span>
+                      <span className="absolute bottom-1.5 left-2 text-[10px] font-mono text-zinc-600 select-none pointer-events-none group-hover:text-[#ccff00] transition-colors z-10">+</span>
+                      <span className="absolute bottom-1.5 right-2 text-[10px] font-mono text-zinc-600 select-none pointer-events-none group-hover:text-[#ccff00] transition-colors z-10">+</span>
 
-                      {/* Bottom Magazine Inset Caption & Barcode */}
-                      <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 bg-gradient-to-t from-black/95 via-black/70 to-transparent flex items-end justify-between gap-4 pointer-events-none">
-                        <div className="min-w-0">
-                          <span className="text-[10px] font-mono text-[#ccff00] uppercase tracking-wider block">
-                            FIG. {project.number} // ARCHITECTURAL SPEC
-                          </span>
-                          <p className="text-xs sm:text-sm font-serif-italic text-zinc-200 truncate">
-                            {project.subtitle}
-                          </p>
+                      {/* Top Editorial Plate Header */}
+                      <div className="relative z-10 flex items-center justify-between px-2 pb-2.5 sm:pb-3 border-b border-white/10 text-[10px] sm:text-[11px] font-mono text-zinc-400">
+                        <div className="flex items-center gap-2">
+                          <span className="text-[#ccff00] font-bold">VOL. 2026</span>
+                          <span className="text-zinc-600">//</span>
+                          <span>PLATE {project.number}</span>
                         </div>
-                        <div className="shrink-0 hidden sm:flex flex-col items-end">
-                          <BarcodeSvg className="h-5 w-auto text-zinc-400" />
-                          <span className="text-[8px] font-mono text-zinc-500 mt-0.5 tracking-tighter">
-                            CATALOGUE #{project.number}
-                          </span>
+
+                        {/* Dual-Plate View Toggle: Photo Spec vs. System Blueprint */}
+                        <div className="flex items-center bg-zinc-950 p-0.5 rounded-full border border-zinc-800">
+                          <button
+                            onClick={() => togglePlateView(project.number, 'photo')}
+                            onMouseEnter={onHoverSound}
+                            className={`px-2.5 py-1 rounded-full text-[9px] font-mono transition-colors cursor-pointer flex items-center gap-1 ${
+                              currentPlateView === 'photo'
+                                ? 'bg-[#ccff00] text-black font-bold'
+                                : 'text-zinc-400 hover:text-white'
+                            }`}
+                          >
+                            <Eye size={10} />
+                            <span>PHOTO</span>
+                          </button>
+                          <button
+                            onClick={() => togglePlateView(project.number, 'blueprint')}
+                            onMouseEnter={onHoverSound}
+                            className={`px-2.5 py-1 rounded-full text-[9px] font-mono transition-colors cursor-pointer flex items-center gap-1 ${
+                              currentPlateView === 'blueprint'
+                                ? 'bg-[#ccff00] text-black font-bold'
+                                : 'text-zinc-400 hover:text-white'
+                            }`}
+                          >
+                            <Cpu size={10} />
+                            <span>BLUEPRINT</span>
+                          </button>
+                        </div>
+
+                        <div className="hidden sm:flex items-center gap-2">
+                          <span className="text-zinc-500">CURATED</span>
+                          <span className="text-white font-bold">{project.number} / 05</span>
                         </div>
                       </div>
-                    </a>
 
-                    {/* Bottom Editorial Colophon Strip */}
-                    <div className="flex items-center justify-between px-2 pt-3 sm:pt-3.5 border-t border-white/10 text-[10px] font-mono text-zinc-500 mt-3 sm:mt-3.5">
-                      <div className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                        <span className="text-zinc-300">CLOUD PRODUCTION VERIFIED</span>
-                      </div>
-                      <div className="text-zinc-500 uppercase">
-                        CURATED ARCHIVE 2026
+                      {/* Plate Content: Either Photo Showcase OR Architectural Blueprint */}
+                      {currentPlateView === 'photo' ? (
+                        <div className="relative z-10 aspect-[16/10] w-full overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-zinc-950 mt-3 sm:mt-3.5 shadow-inner">
+                          {/* High-Resolution Enhanced Photograph */}
+                          <img
+                            src={project.image}
+                            alt={project.title}
+                            className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-700 ease-out filter contrast-[1.03] brightness-[0.98]"
+                            loading="lazy"
+                          />
+
+                          {/* Glossy Magazine Paper Sheen Reflection */}
+                          <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out bg-gradient-to-r from-transparent via-white/[0.12] to-transparent pointer-events-none" />
+
+                          {/* Top Badge Overlay */}
+                          <div className="absolute top-3 sm:top-4 left-3 sm:left-4 z-20 flex items-center gap-2 px-3 py-1 rounded-full bg-black/85 border border-white/15 backdrop-blur-md shadow-lg">
+                            <span className="w-2 h-2 rounded-full bg-[#ccff00] animate-pulse" />
+                            <span className="text-[10px] sm:text-xs font-mono font-bold text-white tracking-wider">
+                              {project.badge}
+                            </span>
+                          </div>
+
+                          {/* Inspect Viewfinder Button (Enlarge Modal) */}
+                          <button
+                            onClick={() => openInspectionModal(globalIndex)}
+                            onMouseEnter={onHoverSound}
+                            title="Inspect high-resolution magazine spread"
+                            className="absolute top-3 sm:top-4 right-3 sm:right-4 z-20 flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/85 hover:bg-[#ccff00] text-zinc-300 hover:text-black border border-white/15 backdrop-blur-md text-[10px] font-mono transition-all duration-200 cursor-pointer shadow-lg hover:scale-105"
+                          >
+                            <Maximize2 size={11} />
+                            <span className="hidden sm:inline">INSPECT</span>
+                          </button>
+
+                          {/* Bottom Magazine Inset Caption & Barcode */}
+                          <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 bg-gradient-to-t from-black/95 via-black/75 to-transparent flex items-end justify-between gap-4 pointer-events-none">
+                            <div className="min-w-0">
+                              <span className="text-[10px] font-mono text-[#ccff00] uppercase tracking-wider block">
+                                FIG. {project.number} // ARCHITECTURAL SPEC
+                              </span>
+                              <p className="text-xs sm:text-sm font-serif-italic text-zinc-200 truncate">
+                                {project.subtitle}
+                              </p>
+                            </div>
+                            <div className="shrink-0 hidden sm:flex flex-col items-end">
+                              <BarcodeSvg className="h-5 w-auto text-zinc-400" />
+                              <span className="text-[8px] font-mono text-zinc-500 mt-0.5 tracking-tighter">
+                                CATALOGUE #{project.number}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        /* Architectural System Blueprint View */
+                        <div className="relative z-10 aspect-[16/10] w-full overflow-hidden rounded-xl sm:rounded-2xl border border-cyan-500/20 bg-[#060a10] mt-3 sm:mt-3.5 p-4 flex flex-col justify-between shadow-inner">
+                          {/* CAD Grid Backdrop */}
+                          <div className="absolute inset-0 opacity-[0.06] bg-[linear-gradient(to_right,#00ffff_1px,transparent_1px),linear-gradient(to_bottom,#00ffff_1px,transparent_1px)] bg-[size:1.5rem_1.5rem] pointer-events-none" />
+
+                          {/* Blueprint Top Header */}
+                          <div className="relative z-10 flex items-center justify-between border-b border-cyan-500/20 pb-2 text-[10px] font-mono">
+                            <div className="flex items-center gap-2">
+                              <span className="w-2 h-2 rounded-sm bg-cyan-400 animate-pulse" />
+                              <span className="text-cyan-300 font-bold tracking-wider">{project.blueprint.title}</span>
+                            </div>
+                            <span className="text-[9px] text-zinc-500 hidden sm:inline">SCHEMATIC CAD // REV 2026.4</span>
+                          </div>
+
+                          {/* 5-Step Pipeline Stages */}
+                          <div className="relative z-10 space-y-1.5 sm:space-y-2 my-auto py-2">
+                            {project.blueprint.stages.map((stg, sIdx) => (
+                              <div
+                                key={sIdx}
+                                className="flex items-start gap-3 p-1.5 sm:p-2 rounded-lg bg-zinc-950/80 border border-zinc-800/80 hover:border-cyan-500/40 transition-colors group/stg"
+                              >
+                                <span className="text-[9px] font-mono font-bold text-cyan-400 px-1.5 py-0.5 rounded bg-cyan-950/50 border border-cyan-800/40 shrink-0">
+                                  {stg.label}
+                                </span>
+                                <div className="min-w-0 flex-1">
+                                  <div className="text-xs font-mono font-bold text-zinc-200 group-hover/stg:text-[#ccff00] transition-colors truncate">
+                                    {stg.name}
+                                  </div>
+                                  <div className="text-[10px] text-zinc-400 truncate leading-tight">
+                                    {stg.desc}
+                                  </div>
+                                </div>
+                                <span className="text-zinc-600 group-hover/stg:text-cyan-400 text-xs shrink-0 hidden sm:inline">➔</span>
+                              </div>
+                            ))}
+                          </div>
+
+                          {/* Blueprint Bottom Protocol Bar */}
+                          <div className="relative z-10 flex items-center justify-between pt-2 border-t border-cyan-500/20 text-[9px] font-mono text-zinc-400">
+                            <span className="text-zinc-500 truncate">
+                              PROTOCOL: <span className="text-zinc-300">{project.blueprint.protocol}</span>
+                            </span>
+                            <span className="text-emerald-400 font-bold shrink-0">100% OPERATIONAL</span>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Bottom Editorial Colophon Strip */}
+                      <div className="relative z-10 flex items-center justify-between px-2 pt-3 sm:pt-3.5 border-t border-white/10 text-[10px] font-mono text-zinc-500 mt-3 sm:mt-3.5">
+                        <div className="flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                          <span className="text-zinc-300">CLOUD PRODUCTION VERIFIED</span>
+                        </div>
+                        <div className="text-zinc-500 uppercase hidden sm:block">
+                          CURATED ARCHIVE 2026 • FOLIO {project.number}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Magazine Editorial Narrative (Article Column) */}
-                <div
-                  className={`lg:col-span-5 space-y-4 sm:space-y-6 ${
-                    isEven ? 'order-2' : 'order-2 lg:order-1'
-                  }`}
-                >
-                  {/* Article Issue Header Bar */}
-                  <div className="flex items-center justify-between flex-wrap gap-2 border-b border-zinc-800/80 pb-3">
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs font-mono font-black text-[#ccff00]">
-                        N° {project.number}
-                      </span>
-                      <span className="text-zinc-600">•</span>
-                      <span className="text-[11px] font-mono tracking-widest text-zinc-400 uppercase">
-                        FEATURE STORY
-                      </span>
+                  {/* Magazine Editorial Narrative (Article Column) */}
+                  <div
+                    className={`lg:col-span-5 space-y-4 sm:space-y-5 ${
+                      isEven ? 'order-2' : 'order-2 lg:order-1'
+                    }`}
+                  >
+                    {/* Article Issue Header Bar */}
+                    <div className="flex items-center justify-between flex-wrap gap-2 border-b border-zinc-800/80 pb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-mono font-black text-[#ccff00]">
+                          N° {project.number}
+                        </span>
+                        <span className="text-zinc-600">•</span>
+                        <span className="text-[11px] font-mono tracking-widest text-zinc-400 uppercase">
+                          FEATURE STORY
+                        </span>
+                      </div>
+
+                      {project.liveDomain && (
+                        <a
+                          href={project.demoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono hover:bg-emerald-500/20 hover:border-emerald-400 transition-all duration-300 group max-w-full"
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                          <span className="truncate">{project.liveDomain}</span>
+                          <ArrowUpRight size={13} className="shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                        </a>
+                      )}
                     </div>
 
-                    {project.liveDomain && (
+                    {/* Editorial Article Headline */}
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-black font-display tracking-tight uppercase leading-tight text-white">
+                      {project.italicWord ? (
+                        <>
+                          {project.title.split(project.italicWord)[0]}
+                          <span className="font-serif-italic font-normal lowercase text-[#ccff00]">
+                            {project.italicWord}
+                          </span>
+                          {project.title.split(project.italicWord)[1]}
+                        </>
+                      ) : (
+                        project.title
+                      )}
+                    </h3>
+
+                    {/* Editorial Pull-Quote with Verification Seal */}
+                    <div className="relative flex items-center justify-between gap-4">
+                      <div className="border-l-2 border-[#ccff00] pl-4 py-1 italic font-serif text-zinc-300 text-sm sm:text-base leading-relaxed flex-1">
+                        "{project.leadQuote}"
+                      </div>
+                      <div className="shrink-0 hidden xl:block">
+                        <EditorialSeal className="w-16 h-16 opacity-70" />
+                      </div>
+                    </div>
+
+                    {/* Editorial Big Stat Scorecard (Magazine Review Metric Bar) */}
+                    <div className="grid grid-cols-3 gap-2 py-3 px-3.5 rounded-xl bg-zinc-950/90 border border-white/10 my-1 text-center">
+                      {project.keyMetrics.map((km, kmIdx) => (
+                        <div key={kmIdx} className="space-y-1">
+                          <span className="text-base sm:text-lg font-black font-display text-[#ccff00] tracking-tight block leading-none">
+                            {km.val}
+                          </span>
+                          <span className="text-[9px] font-mono text-zinc-400 uppercase tracking-tighter block truncate">
+                            {km.label}
+                          </span>
+                          {/* Micro Gauge Bar */}
+                          <div className="w-12 mx-auto h-0.5 bg-zinc-800 rounded-full overflow-hidden">
+                            <div
+                              className="h-full bg-[#ccff00]"
+                              style={{ width: `${km.pct || 90}%` }}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Technical Spec Sheet Grid */}
+                    <div className="grid grid-cols-2 gap-2.5 p-3 sm:p-3.5 rounded-xl bg-zinc-950/90 border border-zinc-800 text-[11px] font-mono">
+                      {Object.entries(project.specs).map(([key, val], sIdx) => (
+                        <div key={sIdx} className="space-y-0.5">
+                          <span className="text-[9px] uppercase tracking-wider text-zinc-500 block">
+                            {key}
+                          </span>
+                          <span className="text-zinc-200 font-semibold block truncate">
+                            {val}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Numbered Engineering Highlights */}
+                    <div className="space-y-2 pt-1">
+                      {project.bullets.map((bullet, bIdx) => (
+                        <div key={bIdx} className="flex items-start gap-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                          <span className="text-[11px] font-mono font-bold text-[#ccff00] mt-0.5 shrink-0">
+                            0{bIdx + 1}
+                          </span>
+                          <span>{bullet}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Tech Badges */}
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2 pt-2">
+                      {project.tags.map((tag, tIdx) => (
+                        <span
+                          key={tIdx}
+                          className="px-2.5 py-1 rounded-md text-[10px] sm:text-[11px] font-mono bg-zinc-900/90 border border-zinc-800 text-zinc-300 hover:border-[#ccff00]/40 transition-colors"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Magazine Action Buttons */}
+                    <div className="flex items-center gap-2.5 sm:gap-3 pt-3">
                       <a
                         href={project.demoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono hover:bg-emerald-500/20 hover:border-emerald-400 transition-all duration-300 group max-w-full"
+                        onMouseEnter={onHoverSound}
+                        onClick={onClickSound}
+                        className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[#ccff00] text-black text-xs sm:text-sm font-semibold hover:bg-white transition-all duration-300 shadow-lg hover:scale-105 cursor-pointer"
                       >
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-                        <span className="truncate">{project.liveDomain}</span>
-                        <ArrowUpRight size={13} className="shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                        <span>Explore Live Build</span>
+                        <ArrowUpRight size={14} />
                       </a>
-                    )}
-                  </div>
 
-                  {/* Editorial Article Headline */}
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-black font-display tracking-tight uppercase leading-tight text-white">
-                    {project.italicWord ? (
-                      <>
-                        {project.title.split(project.italicWord)[0]}
-                        <span className="font-serif-italic font-normal lowercase text-[#ccff00]">
-                          {project.italicWord}
-                        </span>
-                        {project.title.split(project.italicWord)[1]}
-                      </>
-                    ) : (
-                      project.title
-                    )}
-                  </h3>
-
-                  {/* Editorial Pull-Quote */}
-                  <div className="border-l-2 border-[#ccff00] pl-4 py-1 italic font-serif text-zinc-300 text-sm sm:text-base leading-relaxed">
-                    "{project.leadQuote}"
-                  </div>
-
-                  {/* Technical Spec Sheet Grid */}
-                  <div className="grid grid-cols-2 gap-2.5 p-3 sm:p-3.5 rounded-xl bg-zinc-950/90 border border-zinc-800 text-[11px] font-mono">
-                    {Object.entries(project.specs).map(([key, val], sIdx) => (
-                      <div key={sIdx} className="space-y-0.5">
-                        <span className="text-[9px] uppercase tracking-wider text-zinc-500 block">
-                          {key}
-                        </span>
-                        <span className="text-zinc-200 font-semibold block truncate">
-                          {val}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Numbered Engineering Highlights */}
-                  <div className="space-y-2.5 pt-1">
-                    {project.bullets.map((bullet, bIdx) => (
-                      <div key={bIdx} className="flex items-start gap-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
-                        <span className="text-[11px] font-mono font-bold text-[#ccff00] mt-0.5 shrink-0">
-                          0{bIdx + 1}
-                        </span>
-                        <span>{bullet}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Tech Badges */}
-                  <div className="flex flex-wrap gap-1.5 sm:gap-2 pt-2">
-                    {project.tags.map((tag, tIdx) => (
-                      <span
-                        key={tIdx}
-                        className="px-2.5 py-1 rounded-md text-[10px] sm:text-[11px] font-mono bg-zinc-900/90 border border-zinc-800 text-zinc-300 hover:border-[#ccff00]/40 transition-colors"
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onMouseEnter={onHoverSound}
+                        onClick={onClickSound}
+                        className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-zinc-900 border border-zinc-700 text-zinc-200 text-xs sm:text-sm font-medium hover:bg-zinc-800 hover:text-white transition-all duration-300 cursor-pointer"
                       >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Magazine Action Buttons */}
-                  <div className="flex items-center gap-2.5 sm:gap-3 pt-3">
-                    <a
-                      href={project.demoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onMouseEnter={onHoverSound}
-                      onClick={onClickSound}
-                      className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[#ccff00] text-black text-xs sm:text-sm font-semibold hover:bg-white transition-all duration-300 shadow-lg hover:scale-105"
-                    >
-                      <span>Explore Live Build</span>
-                      <ArrowUpRight size={14} />
-                    </a>
-
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onMouseEnter={onHoverSound}
-                      onClick={onClickSound}
-                      className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-zinc-900 border border-zinc-700 text-zinc-200 text-xs sm:text-sm font-medium hover:bg-zinc-800 hover:text-white transition-all duration-300"
-                    >
-                      <GithubIcon size={14} />
-                      <span>Technical Repository</span>
-                    </a>
+                        <GithubIcon size={14} />
+                        <span>Technical Repository</span>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -437,6 +806,126 @@ export default function SelectedWork({ onHoverSound, onClickSound }) {
           })}
         </div>
       </div>
+
+      {/* Fullscreen Magazine Spread Lightbox Inspection Modal */}
+      {activeInspectProject && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-2xl p-4 sm:p-8 animate-fadeIn"
+          onClick={closeInspectionModal}
+        >
+          <div
+            className="relative w-full max-w-6xl max-h-[92vh] flex flex-col bg-[#0b0c10] border border-white/20 rounded-2xl sm:rounded-3xl shadow-[0_0_80px_rgba(0,0,0,0.95)] overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Editorial Masthead Header */}
+            <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 border-b border-white/10 bg-zinc-950/80">
+              <div className="flex items-center gap-3">
+                <span className="w-2 h-2 rounded-full bg-[#ccff00] animate-pulse" />
+                <span className="text-xs font-mono font-bold text-[#ccff00]">
+                  SPREAD {activeInspectProject.number} / 05
+                </span>
+                <span className="text-zinc-600 hidden sm:inline">//</span>
+                <span className="text-xs font-mono text-zinc-300 hidden sm:inline uppercase truncate max-w-md">
+                  {activeInspectProject.title}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2 sm:gap-3">
+                <button
+                  onClick={prevInspect}
+                  onMouseEnter={onHoverSound}
+                  className="p-1.5 rounded-full bg-zinc-900 hover:bg-[#ccff00] text-zinc-300 hover:text-black transition-colors cursor-pointer"
+                  title="Previous Spread (←)"
+                >
+                  <ChevronLeft size={16} />
+                </button>
+                <button
+                  onClick={nextInspect}
+                  onMouseEnter={onHoverSound}
+                  className="p-1.5 rounded-full bg-zinc-900 hover:bg-[#ccff00] text-zinc-300 hover:text-black transition-colors cursor-pointer"
+                  title="Next Spread (→)"
+                >
+                  <ChevronRight size={16} />
+                </button>
+                <button
+                  onClick={closeInspectionModal}
+                  onMouseEnter={onHoverSound}
+                  className="flex items-center gap-1 px-3 py-1 rounded-full bg-zinc-900 hover:bg-red-500/20 text-zinc-300 hover:text-red-400 border border-zinc-800 transition-colors cursor-pointer text-xs font-mono"
+                  title="Close (Esc)"
+                >
+                  <X size={14} />
+                  <span className="hidden sm:inline">ESC</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Modal Body: Large Photographic Plate + Specs */}
+            <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5">
+              <div className="relative aspect-[16/9] w-full max-h-[58vh] rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 bg-black shadow-2xl">
+                <img
+                  src={activeInspectProject.image}
+                  alt={activeInspectProject.title}
+                  className="w-full h-full object-contain object-center bg-black"
+                />
+                <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/80 border border-white/20 text-[10px] font-mono text-[#ccff00]">
+                  FIG. {activeInspectProject.number} // HIGH-RES WORKSTATION CAPTURE
+                </div>
+              </div>
+
+              {/* Modal Metadata & Direct Action Bar */}
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-2 border-t border-zinc-800">
+                <div>
+                  <h4 className="text-xl font-bold font-display uppercase text-white">
+                    {activeInspectProject.title}
+                  </h4>
+                  <p className="text-xs font-mono text-zinc-400 mt-0.5">
+                    {activeInspectProject.subtitle}
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-3 w-full sm:w-auto">
+                  <a
+                    href={activeInspectProject.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onMouseEnter={onHoverSound}
+                    onClick={onClickSound}
+                    className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-2 rounded-full bg-[#ccff00] text-black text-xs font-semibold hover:bg-white transition-colors cursor-pointer"
+                  >
+                    <span>Launch Live Build</span>
+                    <ArrowUpRight size={13} />
+                  </a>
+                  <a
+                    href={activeInspectProject.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onMouseEnter={onHoverSound}
+                    onClick={onClickSound}
+                    className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-zinc-900 border border-zinc-700 text-zinc-300 text-xs font-mono hover:text-white transition-colors cursor-pointer"
+                  >
+                    <GithubIcon size={13} />
+                    <span>Source</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Bottom Keyboard Navigation Ticker */}
+            <div className="px-4 sm:px-6 py-2.5 bg-zinc-950 border-t border-white/10 flex items-center justify-between text-[10px] font-mono text-zinc-500">
+              <div className="flex items-center gap-3">
+                <span>PRESS [←] PREVIOUS</span>
+                <span>•</span>
+                <span>[→] NEXT</span>
+                <span>•</span>
+                <span>[ESC] CLOSE</span>
+              </div>
+              <div className="text-zinc-400">
+                MANOHAR AKUTHOTA ARCHIVE // 2026 EDITION
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
