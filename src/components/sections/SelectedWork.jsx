@@ -297,6 +297,7 @@ const projects = [
     italicWord: 'SMARTVOTE',
     subtitle: 'Full-Stack Java 21 / Spring Boot 3.3 • React 18 • AI Facial Security',
     badge: 'ECI STANDARD • ARTICLE 324 COMPLIANT',
+    image: '/assets/project_smartvote.jpg',
     liveDomain: 'smartvote-ai-frontend.onrender.com',
     demoUrl: 'https://smartvote-ai-frontend.onrender.com',
     githubUrl: 'https://github.com/ManoharAkuthota/SmartVote-AI',
