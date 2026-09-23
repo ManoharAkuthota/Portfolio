@@ -281,15 +281,82 @@ const ArchitecturalBlueprint = ({ blueprint, onOpenModal }) => {
 };
 
 const categories = [
-  { id: 'all', label: 'All Curated Spreads', count: '05' },
+  { id: 'all', label: 'All Curated Spreads', count: '06' },
+  { id: 'enterprise', label: 'Enterprise Java & GovTech', count: '03' },
   { id: 'ai', label: 'Autonomous AI & Vision', count: '02' },
-  { id: 'enterprise', label: 'Enterprise Java & CPaaS', count: '02' },
   { id: 'commerce', label: 'Omnichannel Commerce', count: '01' },
 ];
 
 const projects = [
   {
     number: '01',
+    id: 'project-smartvote',
+    category: 'enterprise',
+    department: 'DEPARTMENT // SOVEREIGN GOVTECH & CRYPTOGRAPHIC SYSTEMS',
+    title: 'SMARTVOTE BHARAT — SOVEREIGN E-VOTING SYSTEM',
+    italicWord: 'SMARTVOTE',
+    subtitle: 'Full-Stack Java 21 / Spring Boot 3.3 • React 18 • AI Facial Security',
+    badge: 'ECI STANDARD • ARTICLE 324 COMPLIANT',
+    image: '/assets/project_smartvote.jpg',
+    liveDomain: 'manohar-akuthota-portfolio.onrender.com',
+    demoUrl: 'https://github.com/ManoharAkuthota/SmartVote-AI',
+    githubUrl: 'https://github.com/ManoharAkuthota/SmartVote-AI',
+    leadQuote: 'India’s sovereign national digital electoral portal engineered under ECI standards and Article 324, featuring ephemeral AI facial security, zero biometric retention, and tamper-evident SHA-256 ballot ledger sealing.',
+    keyMetrics: [
+      { val: '100%', label: 'ARTICLE 324 SECRECY', pct: 100 },
+      { val: 'SHA-256', label: 'CRYPTOGRAPHIC SEAL', pct: 100 },
+      { val: '0% Retained', label: 'EPHEMERAL FACIAL AI', pct: 100 },
+    ],
+    specs: {
+      'Sovereign Core': 'Spring Boot 3.3 • Java 21',
+      'Client Chamber': 'React 18 • Vite • Tailwind CSS',
+      'Security & Liveness': 'face-api.js • 2FA Mobile OTP',
+      'Constitutional Secrecy': 'Article 324 Decoupled Hash',
+    },
+    bullets: [
+      'Engineered an ECI-standard digital electoral platform with multi-factor authentication (Aadhaar, EPIC Voter ID, Mobile OTP) and ephemeral AI facial liveness verification.',
+      'Implemented Article 324 constitutional secret digital balloting with mathematical identity decoupling, preventing voter-ballot correlation while guaranteeing public verifiability.',
+      'Constructed SHA-256 tamper-evident cryptographic ballot sealing with verifiable QR receipts, automated bilingual PDF certificate generation, and an independent public ledger verifier.',
+      'Built a native bilingual accessibility engine supporting 7 Indian languages (English, Hindi, Telugu, Tamil, Kannada, Bengali, Marathi) with real-time text-to-speech voice narration.',
+    ],
+    tags: ['Java 21', 'Spring Boot 3.3', 'React 18', 'Vite', 'Spring Security', 'JWT', 'face-api.js', 'SHA-256', 'jsPDF', 'QR Code', 'MySQL', '7 Indian Languages'],
+    blueprint: {
+      title: 'SOVEREIGN CRYPTOGRAPHIC E-VOTING & AUDIT TOPOLOGY',
+      drawingNo: 'MK-2026-ARCH-00',
+      protocol: 'ARTICLE 324 DECOUPLED REST • SHA-256 SEAL • WEBSOCKET ALERTS',
+      tiers: [
+        {
+          tierLabel: '01 // CITIZEN INGRESS & ACCESSIBILITY',
+          badge: 'BALLOT CHAMBER',
+          flowLabel: 'HTTPS / 2FA OTP',
+          nodes: [
+            { name: 'React 18 Voting Chamber', port: ':5173', role: 'Accessible digital ballot chamber with 7 Indian languages & Web Speech narration.', tech: ['React 18', 'Vite', 'Tailwind'] },
+            { name: 'Ephemeral Facial Sentinel', port: 'CANVAS', role: 'In-browser anti-spoofing facial liveness verification with zero template storage.', tech: ['face-api.js', 'Webcam'] },
+          ],
+        },
+        {
+          tierLabel: '02 // SOVEREIGN ENGINE & SECURITY',
+          badge: 'CORE ORCHESTRATION',
+          flowLabel: 'SHA-256 HASH / JWT',
+          nodes: [
+            { name: 'Spring Boot 3.3 API', port: ':8080', role: 'Sovereign electoral API orchestrating 2FA OTP, EPIC verification & RBAC security.', tech: ['Spring Boot 3.3', 'Java 21'] },
+            { name: 'Article 324 Decoupler', port: 'SECRECY', role: 'Cryptographically detaches citizen identity tokens from cast ballot payloads.', tech: ['SHA-256', 'Decoupled Token'] },
+            { name: 'Real-Time Alert Dispatcher', port: 'EVENTS', role: 'Broadcasts official ECI notifications and constituency polling telemetry.', tech: ['STOMP', 'WebSocket'] },
+          ],
+        },
+        {
+          tierLabel: '03 // PUBLIC LEDGER & AUDIT TRAILS',
+          badge: 'IMMUTABLE PERSISTENCE',
+          nodes: [
+            { name: 'National Electoral Roll DB', port: ':3306', role: 'Constituency voter registry, active candidate rolls & immutable ballot ledger.', tech: ['MySQL', 'Spring Data JPA'] },
+            { name: 'Cryptographic Audit Trail', port: 'LEDGER', role: 'Tamper-evident system activity journal and verifiable SHA-256 receipt seals.', tech: ['Audit Logs', 'QR Seals'] },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    number: '02',
     id: 'project-01',
     category: 'ai',
     department: 'DEPARTMENT // APPLIED AI & AUTOMATION',
@@ -355,7 +422,7 @@ const projects = [
     },
   },
   {
-    number: '02',
+    number: '03',
     id: 'project-02',
     category: 'commerce',
     department: 'DEPARTMENT // OMNICHANNEL COMMERCE & FINTECH',
@@ -421,7 +488,7 @@ const projects = [
     },
   },
   {
-    number: '03',
+    number: '04',
     id: 'project-03',
     category: 'enterprise',
     department: 'DEPARTMENT // ENTERPRISE BANKING & DISTRIBUTED SYSTEMS',
@@ -487,7 +554,7 @@ const projects = [
     },
   },
   {
-    number: '04',
+    number: '05',
     id: 'project-04',
     category: 'enterprise',
     department: 'DEPARTMENT // TELECOM BACKEND & KAFKA EVENT CLUSTERS',
@@ -551,7 +618,7 @@ const projects = [
     },
   },
   {
-    number: '05',
+    number: '06',
     id: 'project-05',
     category: 'ai',
     department: 'DEPARTMENT // EDGE COMPUTER VISION & SAFETY AI',

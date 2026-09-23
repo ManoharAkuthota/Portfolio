@@ -101,7 +101,7 @@ export default function TerminalShowcase({ onHoverSound, onClickSound }) {
     } else if (cmd === 'projects') {
       newHistory.push({
         type: 'output',
-        text: '1. AI Job Application Bot  2. Enterprise Banking Portal  3. Driver Drowsiness Detection System',
+        text: '1. SmartVote Bharat (E-Voting)  2. AI Job Application Bot  3. APEX TRUST Banking  4. MS Mobiles Omnichannel',
       });
     } else if (cmd === 'architecture') {
       newHistory.push({
@@ -111,7 +111,7 @@ export default function TerminalShowcase({ onHoverSound, onClickSound }) {
     } else if (cmd === 'contact') {
       newHistory.push({
         type: 'output',
-        text: 'Email: manohar.akuthota@example.com | LinkedIn: /in/manohar-akuthota',
+        text: 'Email: manoharsriakuthota@gmail.com | LinkedIn: /in/manohar-akuthota | Resume: /Akuthota_Manohar_Resume.pdf',
       });
     } else {
       newHistory.push({

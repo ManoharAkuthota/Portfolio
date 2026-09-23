@@ -19,7 +19,7 @@ export const personalInfo = {
   email: "manoharsriakuthota@gmail.com",
   github: "https://github.com/ManoharAkuthota",
   linkedin: "https://www.linkedin.com/in/manohar-akuthota/",
-  resumeUrl: "#contact",
+  resumeUrl: "/Akuthota_Manohar_Resume.pdf",
 };
 
 export const aboutData = {
@@ -157,6 +157,44 @@ export const experienceData = [
 ];
 
 export const projectsData = [
+  {
+    id: "smartvote-ai",
+    title: "SmartVote Bharat — Sovereign E-Voting System",
+    tagline: "Cryptographic Online Voting System under Article 324 with AI Facial Security",
+    description: "An official sovereign digital voting platform engineered in compliance with Election Commission of India (ECI) standards. Features multi-factor voter authentication (Aadhaar, EPIC Voter ID, Mobile OTP), ephemeral AI facial security with anti-spoofing liveness verification, Article 324 constitutional secret digital ballots, and tamper-evident SHA-256 cryptographic ledger sealing.",
+    category: "Full-Stack Enterprise & GovTech",
+    featured: true,
+    tech: ["Java 21", "Spring Boot 3.3", "React 18", "Vite", "Spring Security", "JWT", "face-api.js", "SHA-256", "jsPDF", "Tailwind CSS"],
+    imageGradient: "from-amber-500/20 via-orange-500/10 to-emerald-500/20",
+    stats: [
+      { label: "Ballot Secrecy", value: "100% Article 324" },
+      { label: "Audit Ledger", value: "SHA-256 Seal" },
+      { label: "Biometric Storage", value: "0% Retained" },
+      { label: "Localization", value: "7 Indian Languages" },
+    ],
+    features: [
+      "Article 324 Constitutional Secrecy: Cryptographically decouples citizen identity from voter ballots to guarantee 100% secret digital balloting.",
+      "Ephemeral AI Facial Security: Real-time neural face detection and anti-spoofing liveness verification with zero biometric template storage.",
+      "Cryptographic SHA-256 Ballot Sealing: Instant verifiable audit receipts with embedded QR code seals, downloadable official ECI PDF certificates.",
+      "Bilingual Electoral Support: Full localization across 7 authentic Indian languages (English, Hindi, Telugu, Tamil, Kannada, Bengali, Marathi) with text-to-speech voice narration.",
+      "Real-Time Electoral Telemetry: Push alerts and notifications for voter roll updates, live election turnout statistics, and administrative audit trails.",
+    ],
+    architecture: {
+      client: "React 18 + Vite Web Chamber with Multilingual Voice Narration",
+      gateway: "Spring Boot 3 REST API Gateway with JWT & 2FA Verification",
+      engine: "Article 324 Identity Decoupler & SHA-256 Ballot Sealing Engine",
+      storage: "MySQL Schema (Elections, Voters, Audit Logs, Sealed Ballots)",
+      flow: [
+        "1. Citizen verifies identity via Aadhaar/EPIC credentials and 2FA Mobile OTP",
+        "2. Client executes ephemeral AI facial liveness detection without persisting facial data",
+        "3. Citizen casts secret ballot; identity token is cryptographically detached from the ballot",
+        "4. System calculates SHA-256 seal hash, commits to public ledger, and generates verifiable PDF receipt",
+      ],
+    },
+    github: "https://github.com/ManoharAkuthota/SmartVote-AI",
+    demo: "https://manohar-akuthota-portfolio.onrender.com",
+    previewUrl: "#smartvote-ai",
+  },
   {
     id: "ai-job-bot",
     title: "AI Job Application Bot",
@@ -348,6 +386,30 @@ export async function runJobApplicationWorkflow(jobUrl, userProfile) {
   await browser.close();
 }`,
     },
+    {
+      name: "BallotSealer.java",
+      language: "java",
+      content: `@Service
+public class CryptographicBallotSealer {
+
+    private final SealedBallotRepository ballotRepository;
+    private final DecoupledTokenRegistry tokenRegistry;
+
+    @Transactional
+    public VerifiedReceipt sealConstitutionalBallot(String decoupledToken, Long electionId, Long candidateId) {
+        // Enforce Article 324 one-citizen, one-secret-ballot rule
+        tokenRegistry.verifyAndBurnToken(decoupledToken);
+
+        String ballotPayload = String.format("%d:%d:%s", electionId, candidateId, UUID.randomUUID());
+        String sha256Seal = DigestUtils.sha256Hex(ballotPayload);
+
+        SealedBallot ballot = new SealedBallot(electionId, candidateId, sha256Seal, Instant.now());
+        ballotRepository.save(ballot);
+
+        return new VerifiedReceipt("SMV-2026-" + sha256Seal.substring(0, 8).toUpperCase(), sha256Seal);
+    }
+}`,
+    },
   ],
   commands: [
     { cmd: "manohar --version", output: "Manohar Akuthota OS v4.2.0 [Production Ready]" },
@@ -362,6 +424,14 @@ export const githubActivityData = {
   totalContributions: 1482,
   streakDays: 328,
   repositories: [
+    {
+      name: "SmartVote-AI",
+      description: "SmartVote Bharat — Sovereign cryptographic e-voting system with AI facial security & Article 324 secret ballot.",
+      stars: 56,
+      forks: 18,
+      language: "Java",
+      langColor: "#b07219",
+    },
     {
       name: "ai-job-application-bot",
       description: "Intelligent autonomous job application agent built with Spring Boot, Playwright & Ollama.",

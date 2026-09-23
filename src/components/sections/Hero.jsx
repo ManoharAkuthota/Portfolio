@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, FileText } from 'lucide-react';
 
 export default function Hero({ onHoverSound, onClickSound }) {
   const scrollTo = (id) => {
@@ -84,8 +84,20 @@ export default function Hero({ onHoverSound, onClickSound }) {
           initial={{ opacity: 0, x: 25 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="flex items-center gap-3"
+          className="flex items-center gap-2.5 sm:gap-3 flex-wrap justify-end"
         >
+          <a
+            href="/Akuthota_Manohar_Resume.pdf"
+            download="Akuthota_Manohar_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            onMouseEnter={onHoverSound}
+            className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2.5 rounded-full border border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/40 hover:bg-emerald-400 text-emerald-300 hover:text-black text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 interactive-hover shadow-lg"
+          >
+            <FileText size={15} />
+            <span>Resume (PDF) ↓</span>
+          </a>
+
           <button
             onClick={() => scrollTo('work')}
             onMouseEnter={onHoverSound}
@@ -98,7 +110,7 @@ export default function Hero({ onHoverSound, onClickSound }) {
           <button
             onClick={() => scrollTo('contact')}
             onMouseEnter={onHoverSound}
-            className="px-6 py-2.5 rounded-full border border-zinc-700 hover:border-[#ccff00] bg-zinc-950/80 hover:bg-[#ccff00] text-zinc-200 hover:text-black text-sm font-medium tracking-wide transition-all duration-300 interactive-hover shadow-lg"
+            className="px-5 sm:px-6 py-2.5 rounded-full border border-zinc-700 hover:border-[#ccff00] bg-zinc-950/80 hover:bg-[#ccff00] text-zinc-200 hover:text-black text-xs sm:text-sm font-medium tracking-wide transition-all duration-300 interactive-hover shadow-lg"
           >
             Contact
           </button>

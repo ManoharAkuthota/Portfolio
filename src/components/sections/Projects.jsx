@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, ArrowUpRight, Cpu, Shield, Bot, Layers, Sparkles } from 'lucide-react';
+import { ExternalLink, ArrowUpRight, Cpu, Shield, Bot, Layers, Sparkles, Vote } from 'lucide-react';
 import { Github } from '../common/BrandIcons';
 import SectionHeading from '../common/SectionHeading';
 import GlassCard from '../common/GlassCard';
@@ -8,6 +8,7 @@ import ProjectCubeCanvas from '../3d/ProjectCubeCanvas';
 import { projectsData } from '../../data/portfolioData';
 
 const projectIcons = {
+  'smartvote-ai': Vote,
   'ai-job-bot': Bot,
   'driver-drowsiness': Shield,
   'banking-application': Layers,

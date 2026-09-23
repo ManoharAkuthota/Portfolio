@@ -3,14 +3,19 @@ export const defaultGreeting =
 
 export const suggestedPrompts = [
   "What is Manohar's core tech stack?",
+  "Tell me about the SmartVote Bharat e-voting project",
   "Tell me about the AI Job Application Bot",
   "How does the Driver Drowsiness Detection work?",
-  "Explain the Enterprise Banking project",
+  "Explain the APEX TRUST Banking project",
   "What is his experience as an Assistant Professor?",
-  "How can I contact or interview Manohar?",
+  "How can I download Manohar's official resume?",
 ];
 
 export const aiKnowledgeBase = [
+  {
+    keywords: ["vote", "voting", "smartvote", "election", "ballot", "facial", "biometric", "article 324", "eci"],
+    reply: "**SmartVote Bharat (SmartVote-AI)** is a sovereign national digital e-voting infrastructure designed in strict compliance with Article 324 of the Constitution of India. Built with **Spring Boot 3.3**, **React 18**, and **Vite**, it features AI-powered real-time facial verification & liveness detection, immutable SHA-256 cryptographic ballot sealing, digital voter slip generation, and dual-layer EC/Returning Officer audit consoles.",
+  },
   {
     keywords: ["stack", "skills", "tech", "technologies", "languages", "tools"],
     reply: "Manohar specializes in **Java Spring Boot**, **Hibernate ORM**, **REST APIs**, **JWT Authentication**, and **MySQL** on the backend, alongside modern **React**, **Tailwind CSS**, and **Framer Motion** on the frontend. He also builds AI systems using **Python**, **OpenCV**, and **Ollama (Local LLMs)**.",
@@ -41,7 +46,7 @@ export const aiKnowledgeBase = [
   },
   {
     keywords: ["contact", "email", "hire", "interview", "resume", "reach"],
-    reply: "You can reach Manohar directly via email at **manohar.akuthota@example.com**, connect on [LinkedIn](https://linkedin.com/in/manohar-akuthota), explore his code on [GitHub](https://github.com/manohar-akuthota), or scroll down to the Contact section to send a direct message!",
+    reply: "You can reach Manohar directly via email at **manoharsriakuthota@gmail.com**, connect on [LinkedIn](https://www.linkedin.com/in/manohar-akuthota/), explore his code on [GitHub](https://github.com/ManoharAkuthota), or download his official resume directly from the top navigation bar or hero section!",
   },
 ];
 
@@ -54,5 +59,5 @@ export function getAIResponse(userMessage) {
     }
   }
 
-  return `Thanks for asking! Manohar is a versatile engineer with deep expertise across Java Spring Boot, React, and applied AI systems. Feel free to explore his featured projects above or reach out to him directly at **manohar.akuthota@example.com**!`;
+  return `Thanks for asking! Manohar is a versatile engineer with deep expertise across Java Spring Boot, React, and applied AI systems. Feel free to explore his featured projects above or reach out to him directly at **manoharsriakuthota@gmail.com**! You can also download his official resume directly via the Resume buttons.`;
 }

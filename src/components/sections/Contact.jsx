@@ -158,11 +158,10 @@ export default function Contact({ onHoverSound, onClickSound, onPlaySuccess }) {
 
               {/* Resume download option */}
               <a
-                href="#resume"
-                onClick={(e) => {
-                  e.preventDefault();
-                  alert("Manohar's official resume is available on request. Please drop an email to manohar.akuthota@example.com.");
-                }}
+                href="/Akuthota_Manohar_Resume.pdf"
+                download="Akuthota_Manohar_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
                 onMouseEnter={onHoverSound}
                 className="p-4 rounded-xl bg-slate-950/60 border border-white/5 hover:border-emerald-400/40 flex items-center justify-between gap-3 transition-colors interactive-hover group"
               >

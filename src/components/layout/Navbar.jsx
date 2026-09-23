@@ -78,8 +78,21 @@ export default function Navbar({
           ))}
         </nav>
 
-        {/* Audio Toggle & Mobile Menu Trigger */}
-        <div className="flex items-center gap-3">
+        {/* Audio Toggle, Resume & Mobile Menu Trigger */}
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          <a
+            href="/Akuthota_Manohar_Resume.pdf"
+            download="Akuthota_Manohar_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            onMouseEnter={onHoverSound}
+            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/40 hover:bg-emerald-400 text-emerald-300 hover:text-black text-xs font-semibold tracking-wider transition-all duration-300 shadow-sm interactive-hover"
+            title="Download Official Resume PDF"
+          >
+            <span>RESUME</span>
+            <ArrowUpRight size={13} />
+          </a>
+
           <button
             onClick={onToggleSound}
             onMouseEnter={onHoverSound}
@@ -130,6 +143,19 @@ export default function Navbar({
               </button>
             );
           })}
+
+          {/* Mobile Resume Download Link */}
+          <a
+            href="/Akuthota_Manohar_Resume.pdf"
+            download="Akuthota_Manohar_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMobileOpen(false)}
+            className="text-left text-sm font-semibold tracking-wider py-3 px-3 rounded-2xl transition-all flex items-center justify-between text-emerald-400 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/25 mt-1"
+          >
+            <span>DOWNLOAD RESUME (PDF)</span>
+            <ArrowUpRight size={14} className="text-emerald-400" />
+          </a>
         </motion.div>
       )}
     </header>
