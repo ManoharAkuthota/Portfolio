@@ -297,9 +297,8 @@ const projects = [
     italicWord: 'SMARTVOTE',
     subtitle: 'Full-Stack Java 21 / Spring Boot 3.3 • React 18 • AI Facial Security',
     badge: 'ECI STANDARD • ARTICLE 324 COMPLIANT',
-    image: '/assets/project_smartvote.jpg',
-    liveDomain: 'manohar-akuthota-portfolio.onrender.com',
-    demoUrl: 'https://github.com/ManoharAkuthota/SmartVote-AI',
+    liveDomain: 'smartvote-ai-frontend.onrender.com',
+    demoUrl: 'https://smartvote-ai-frontend.onrender.com',
     githubUrl: 'https://github.com/ManoharAkuthota/SmartVote-AI',
     leadQuote: 'India’s sovereign national digital electoral portal engineered under ECI standards and Article 324, featuring ephemeral AI facial security, zero biometric retention, and tamper-evident SHA-256 ballot ledger sealing.',
     keyMetrics: [

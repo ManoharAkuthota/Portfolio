@@ -192,8 +192,8 @@ export const projectsData = [
       ],
     },
     github: "https://github.com/ManoharAkuthota/SmartVote-AI",
-    demo: "https://manohar-akuthota-portfolio.onrender.com",
-    previewUrl: "#smartvote-ai",
+    demo: "https://smartvote-ai-frontend.onrender.com",
+    previewUrl: "https://smartvote-ai-frontend.onrender.com",
   },
   {
     id: "ai-job-bot",
