@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Akuthota Manohar — Resume</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 10mm 13mm 10mm 13mm;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Inter', Roboto, Helvetica, Arial, sans-serif;
+      color: #1e293b;
+      background: #ffffff;
+      font-size: 9.8pt;
+      line-height: 1.34;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .page {
+      width: 100%;
+      height: auto;
+      box-sizing: border-box;
+    }
+
+    .page-break {
+      page-break-before: always;
+      break-before: page;
+      padding-top: 2mm;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 4mm;
+    }
+
+    .name {
+      font-size: 20pt;
+      font-weight: 800;
+      color: #1e3a8a;
+      letter-spacing: 0.8px;
+      margin-bottom: 2mm;
+      text-transform: uppercase;
+    }
+
+    .contact-line {
+      font-size: 8.8pt;
+      color: #334155;
+      margin-bottom: 1mm;
+    }
+
+    .contact-line a {
+      color: #1d4ed8;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .contact-line a:hover {
+      text-decoration: underline;
+    }
+
+    .sep {
+      color: #94a3b8;
+      margin: 0 4px;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 3.5mm;
+    }
+
+    .section-title {
+      font-size: 10.2pt;
+      font-weight: 700;
+      color: #1e3a8a;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1.5px solid #1e3a8a;
+      padding-bottom: 1.2px;
+      margin-bottom: 2.2mm;
+    }
+
+    .summary-text {
+      font-size: 9.1pt;
+      color: #334155;
+      text-align: justify;
+      line-height: 1.35;
+    }
+
+    /* Two-column rows for experience & education */
+    .item-row {
+      display: flex;
+      margin-bottom: 2.8mm;
+    }
+
+    .item-date {
+      width: 135px;
+      flex-shrink: 0;
+      font-size: 8.8pt;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .item-content {
+      flex: 1;
+    }
+
+    .item-header {
+      font-size: 9.3pt;
+      margin-bottom: 1mm;
+    }
+
+    .item-role {
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .item-company {
+      font-style: italic;
+      color: #475569;
+    }
+
+    ul.bullets {
+      list-style-type: none;
+      padding-left: 0;
+      margin-top: 1mm;
+    }
+
+    ul.bullets li {
+      position: relative;
+      padding-left: 13px;
+      margin-bottom: 1mm;
+      font-size: 8.8pt;
+      color: #334155;
+      line-height: 1.32;
+    }
+
+    ul.bullets li::before {
+      content: "•";
+      position: absolute;
+      left: 2px;
+      color: #1e3a8a;
+      font-size: 10pt;
+      line-height: 1;
+    }
+
+    /* Education styling */
+    .edu-row {
+      display: flex;
+      margin-bottom: 2mm;
+    }
+
+    .edu-date {
+      width: 135px;
+      flex-shrink: 0;
+      font-size: 8.8pt;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .edu-content {
+      flex: 1;
+    }
+
+    .edu-degree {
+      font-size: 9.1pt;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .edu-school {
+      font-size: 8.7pt;
+      color: #475569;
+    }
+
+    .edu-score {
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    /* Projects styling (Page 2) */
+    .project-card {
+      margin-bottom: 2.8mm;
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.8mm;
+    }
+
+    .project-title-group {
+      font-size: 9.4pt;
+    }
+
+    .project-name {
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .project-tagline {
+      color: #334155;
+      font-weight: 500;
+    }
+
+    .project-links {
+      font-size: 8.5pt;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .project-links a {
+      color: #1d4ed8;
+      text-decoration: none;
+      margin-left: 3px;
+    }
+
+    .project-links a:hover {
+      text-decoration: underline;
+    }
+
+    .project-stack {
+      font-size: 8.3pt;
+      color: #475569;
+      font-style: italic;
+      margin-bottom: 1.2mm;
+    }
+
+    .project-stack strong {
+      font-style: normal;
+      color: #334155;
+      font-weight: 600;
+    }
+
+    /* Skills table */
+    .skills-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2mm;
+      margin-bottom: 2.5mm;
+    }
+
+    .skill-row {
+      display: flex;
+      font-size: 8.6pt;
+    }
+
+    .skill-label {
+      width: 165px;
+      font-weight: 700;
+      color: #0f172a;
+      flex-shrink: 0;
+    }
+
+    .skill-values {
+      color: #334155;
+      flex: 1;
+    }
+
+    /* Achievements */
+    .achievement-item {
+      position: relative;
+      padding-left: 13px;
+      margin-bottom: 1.2mm;
+      font-size: 8.6pt;
+      color: #334155;
+      line-height: 1.32;
+    }
+
+    .achievement-item::before {
+      content: "•";
+      position: absolute;
+      left: 2px;
+      color: #1e3a8a;
+      font-size: 10pt;
+      line-height: 1;
+    }
+
+    .achievement-item strong {
+      color: #0f172a;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== PAGE 1 ==================== -->
+  <div class="page">
+    <div class="header">
+      <div class="name">Akuthota Manohar</div>
+      <div class="contact-line">
+        Ahmedabad, India <span class="sep">|</span> +91 8096870549 <span class="sep">|</span> <a href="mailto:manoharsriakuthota@gmail.com">manoharsriakuthota@gmail.com</a>
+      </div>
+      <div class="contact-line">
+        <a href="https://www.linkedin.com/in/manohar-akuthota/" target="_blank">LinkedIn ↗</a> <span class="sep">|</span> 
+        <a href="https://github.com/ManoharAkuthota" target="_blank">GitHub ↗</a> <span class="sep">|</span> 
+        <a href="https://manohar-akuthota-portfolio.onrender.com" target="_blank">Portfolio: manohar-akuthota-portfolio.onrender.com ↗</a>
+      </div>
+    </div>
+
+    <!-- Professional Summary -->
+    <div class="section">
+      <div class="section-title">Professional Summary</div>
+      <div class="summary-text">
+        Computer Science (AI) graduate and Java developer with hands-on experience building backend microservices for a production CPaaS (Communications Platform as a Service) using Spring Boot, Spring Security, JWT, and Apache Kafka. Combines strong full-stack fundamentals (Java, JavaScript, React, Angular) with practical experience across content strategy and web development. Proven ability to design secure, scalable systems and deliver responsive, user-friendly applications. Eager to bring strong engineering craftsmanship, reliable problem solving, and communication skills to a dynamic, growth-oriented team.
+      </div>
+    </div>
+
+    <!-- Work Experience -->
+    <div class="section">
+      <div class="section-title">Work Experience</div>
+
+      <div class="item-row">
+        <div class="item-date">Jan 2026 – Present</div>
+        <div class="item-content">
+          <div class="item-header">
+            <span class="item-role">Junior Java Developer</span>, <span class="item-company">Keyanna Technologies, Ahmedabad</span>
+          </div>
+          <ul class="bullets">
+            <li>Built and maintained backend microservices for the company’s CPaaS (Communications Platform as a Service) product using Spring Boot and a microservices architecture.</li>
+            <li>Implemented secure authentication and authorization flows with Spring Security and JWT-based token management.</li>
+            <li>Integrated Apache Kafka for real-time, event-driven messaging between services, improving reliability of communication workflows.</li>
+            <li>Worked across relational databases to support core CPaaS features, collaborating with the engineering team on API design, schema optimization, and production deployment.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="item-row">
+        <div class="item-date">Apr 2025 – Dec 2025</div>
+        <div class="item-content">
+          <div class="item-header">
+            <span class="item-role">Content Writer</span>, <span class="item-company">Parul University, Vadodara</span>
+          </div>
+          <ul class="bullets">
+            <li>Created, edited, and oversaw academic and technical content for the Centre for Distance and Online Education (CDOE) department, ensuring accuracy and policy compliance.</li>
+            <li>Synthesized complex pedagogical modules and university program documentation into structured, accessible digital learning materials.</li>
+            <li>Collaborated with academic faculty and department leads to maintain editorial rigor across curricula.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="item-row">
+        <div class="item-date">Feb 2025 – May 2025</div>
+        <div class="item-content">
+          <div class="item-header">
+            <span class="item-role">Web Developer Intern</span>, <span class="item-company">Talent Lad, Vijayawada</span>
+          </div>
+          <ul class="bullets">
+            <li>Designed and developed responsive, mobile-friendly web pages using HTML, CSS, and JavaScript.</li>
+            <li>Assisted in building and maintaining interactive client websites, collaborating closely with senior developers to fulfill feature requirements.</li>
+            <li>Conducted cross-browser responsiveness audits and optimized layout rendering speeds across mobile and desktop devices.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Education -->
+    <div class="section">
+      <div class="section-title">Education</div>
+
+      <div class="edu-row">
+        <div class="edu-date">2022 – 2026</div>
+        <div class="edu-content">
+          <div class="edu-degree">Bachelor of Technology – Computer Science (Artificial Intelligence)</div>
+          <div class="edu-school">Parul University, Vadodara — <span class="edu-score">CGPA: 8.26 / 10</span></div>
+        </div>
+      </div>
+
+      <div class="edu-row">
+        <div class="edu-date">2020 – 2022</div>
+        <div class="edu-content">
+          <div class="edu-degree">Class XII (Intermediate MPC)</div>
+          <div class="edu-school">Sri Vidwan Junior College, Warangal, Telangana — <span class="edu-score">Score: 96.4%</span></div>
+        </div>
+      </div>
+
+      <div class="edu-row">
+        <div class="edu-date">2019 – 2020</div>
+        <div class="edu-content">
+          <div class="edu-degree">Class X (Secondary School Certificate)</div>
+          <div class="edu-school">Vidyodaya High School, Nekkonda, Warangal, Telangana — <span class="edu-score">GPA: 10.0 / 10</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PAGE 2 ==================== -->
+  <div class="page page-break">
+    <!-- Featured Projects (ALL 4 PROJECTS with Live Demo & GitHub links) -->
+    <div class="section">
+      <div class="section-title">Featured Technical & Full-Stack Projects</div>
+
+      <!-- Project 1: SmartVote Bharat (E-Voting) -->
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-title-group">
+            <span class="project-name">SmartVote Bharat (SmartVote-AI)</span> — <span class="project-tagline">Sovereign Digital E-Voting System</span>
+          </div>
+          <div class="project-links">
+            [<a href="https://manohar-smartvote-bharat.onrender.com/" target="_blank">Live Demo ↗</a> <span class="sep">|</span> <a href="https://github.com/ManoharAkuthota/SmartVote-AI" target="_blank">GitHub ↗</a>]
+          </div>
+        </div>
+        <div class="project-stack">
+          <strong>Tech Stack:</strong> Spring Boot 3.3, React 18, Vite, AI Facial Security, SHA-256 Cryptographic Sealer, MySQL, Tailwind CSS
+        </div>
+        <ul class="bullets">
+          <li>Architected a sovereign digital electoral voting platform complying with Article 324 of the Constitution of India, guaranteeing 100% secret balloting and immutable SHA-256 cryptographic ballot sealing.</li>
+          <li>Implemented AI real-time facial verification & liveness detection in the polling chamber, preventing biometric spoofing and ensuring zero duplicate votes.</li>
+          <li>Engineered dual-layer Election Commission & Returning Officer audit consoles, verifiable digital voter slips, and a public cryptographic receipt verification engine.</li>
+        </ul>
+      </div>
+
+      <!-- Project 2: APEX TRUST Banking -->
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-title-group">
+            <span class="project-name">Banking Management System (APEX TRUST)</span> — <span class="project-tagline">Enterprise Core Banking Platform</span>
+          </div>
+          <div class="project-links">
+            [<a href="https://apex-trust-frontend.onrender.com/" target="_blank">Live Demo ↗</a> <span class="sep">|</span> <a href="https://github.com/ManoharAkuthota/BankingApplication" target="_blank">GitHub ↗</a>]
+          </div>
+        </div>
+        <div class="project-stack">
+          <strong>Tech Stack:</strong> Spring Boot 3 (Java 21), Angular 19, TiDB Serverless / MySQL, JWT, Liquibase, Docker, Render
+        </div>
+        <ul class="bullets">
+          <li>Architected an enterprise core banking platform using Spring Boot 3 and Angular 19 with TiDB Serverless (distributed MySQL) and automated Liquibase schema migrations.</li>
+          <li>Engineered 4-tier Role-Based Access Control (Admin, Branch Manager, Teller, Customer) secured by stateless JWT authentication, BCrypt encryption, and audit trail logging.</li>
+          <li>Built real-time transaction and ledger engine handling branch-level customer onboarding, account creation approval workflows, inter-account fund transfers, and ACID ledger consistency.</li>
+        </ul>
+      </div>
+
+      <!-- Project 3: MS Mobiles E-Commerce -->
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-title-group">
+            <span class="project-name">MS Mobiles</span> — <span class="project-tagline">Omnichannel E-Commerce Platform — Web & Native Android Application</span>
+          </div>
+          <div class="project-links">
+            [<a href="https://ms-mobiles-frontend.onrender.com/" target="_blank">Live Demo ↗</a> <span class="sep">|</span> <a href="https://github.com/ManoharAkuthota/Ecommerce" target="_blank">GitHub ↗</a>]
+          </div>
+        </div>
+        <div class="project-stack">
+          <strong>Tech Stack:</strong> Spring Boot 3, React 18, TiDB Cloud (AWS MySQL), Spring Security 6, JWT, Capacitor 8, jsPDF, Cloudinary CDN
+        </div>
+        <ul class="bullets">
+          <li>Architected an enterprise-grade e-commerce ecosystem using Spring Boot 3, React 18, and TiDB Cloud with stateless JWT / Spring Security 6 role-based authentication and dynamic smartphone catalog management.</li>
+          <li>Engineered an official PDF GST Tax Invoice generator adhering to statutory tax rules (HSN 8517, CGST/SGST/IGST breakdown) with Indian Rupee number-to-words conversion.</li>
+          <li>Built real-time stock alert engine dispatching notifications on administrative inventory restocks; packaged storefront into a native Android App via Capacitor 8 with offline PWA support.</li>
+        </ul>
+      </div>
+
+      <!-- Project 4: AI Job Application Bot -->
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-title-group">
+            <span class="project-name">AI Job Application Bot & ATS Platform</span> — <span class="project-tagline">Autonomous AI Automation System</span>
+          </div>
+          <div class="project-links">
+            [<a href="https://manohar-ai-job-frontend.onrender.com" target="_blank">Live Demo ↗</a> <span class="sep">|</span> <a href="https://github.com/ManoharAkuthota/ai-job-agent" target="_blank">GitHub ↗</a>]
+          </div>
+        </div>
+        <div class="project-stack">
+          <strong>Tech Stack:</strong> Spring Boot 3, React 19, MySQL, Local Ollama (Llama 3), Google Gemini, Playwright, Render
+        </div>
+        <ul class="bullets">
+          <li>Built an end-to-end autonomous job automation engine using Spring Boot 3, React 19, and MySQL, processing candidate resumes with ATS semantic matching and instant PDF compilation.</li>
+          <li>Integrated multi-model AI workflows (Local Ollama Llama 3 & Google Gemini) to generate personalized cover letters, tailored resumes, and 3-tier interview prep kits without token costs.</li>
+          <li>Orchestrated automated job applications using headless Playwright with screenshot proof verification, cron scheduling, and email confirmation dispatching.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Technical Skills -->
+    <div class="section">
+      <div class="section-title">Technical Skills</div>
+      <div class="skills-grid">
+        <div class="skill-row">
+          <span class="skill-label">Backend</span>
+          <span class="skill-values">Java, Spring Boot, Spring Security, JWT, Microservices, Apache Kafka, REST APIs</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-label">Web Technologies</span>
+          <span class="skill-values">HTML, CSS, React, Angular, Node.js, Express, Tailwind CSS</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-label">Databases</span>
+          <span class="skill-values">MySQL, MongoDB, TiDB Serverless</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-label">Tools & Platforms</span>
+          <span class="skill-values">GitHub, Git, REST APIs, Postman, Docker, Render, Capacitor</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-label">Programming Languages</span>
+          <span class="skill-values">Java, JavaScript, Python, DSA (Data Structures & Algorithms)</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-label">Soft Skills</span>
+          <span class="skill-values">Communication, Team Management, Problem Solving, Technical Documentation</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Achievements & Strengths -->
+    <div class="section" style="margin-bottom: 0;">
+      <div class="section-title">Achievements & Strengths</div>
+      <div class="achievement-item">
+        <strong>Hands-on CPaaS Backend Experience:</strong> Proven track record building backend microservices for a real-world CPaaS product using modern Java, Spring Boot, Apache Kafka, and JWT security.
+      </div>
+      <div class="achievement-item">
+        <strong>Consistent Academic Excellence:</strong> Demonstrated top academic performance throughout schooling and university (8.26 CGPA in B.Tech, 96.4% in Class XII, 10/10 GPA in Class X).
+      </div>
+      <div class="achievement-item">
+        <strong>Full-Stack Versatility:</strong> Practical cross-stack experience spanning Java/Spring backend microservices, Angular/React frontend engineering, relational databases, and technical writing.
+      </div>
+      <div class="achievement-item">
+        <strong>High-Impact Communication:</strong> Effective communicator with proven ability to synthesize complex engineering concepts into clear documentation, team presentations, and stakeholder reviews.
+      </div>
+      <div class="achievement-item">
+        <strong>Continuous Growth Mindset:</strong> Fast learner passionate about enterprise software architecture, writing clean and maintainable code, and solving complex technical challenges.
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
