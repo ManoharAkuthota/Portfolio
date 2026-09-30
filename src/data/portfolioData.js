@@ -308,6 +308,44 @@ export const projectsData = [
     demo: "https://apex-trust-frontend.onrender.com/",
     previewUrl: "#banking-application",
   },
+  {
+    id: "drivepulse-mobility",
+    title: "DrivePulse — Enterprise Ride-Hailing & Fleet Mobility",
+    tagline: "Full-Stack Rapido & Uber Mobility Engine with Real-Time Vector Maps",
+    description: "An enterprise-grade ride-hailing and fleet mobility platform inspired by Rapido and Uber, engineered with React 18, Tailwind CSS, Leaflet.js, and Spring Boot 3. It delivers real-time vector map tracking, multi-modal vehicle bookings (Bike, Auto, Cab, and Porter Cargo), and dedicated operational interfaces for Riders, Driver Partners, and Platform Administrators.",
+    category: "Full-Stack Enterprise & Mobility",
+    featured: true,
+    tech: ["Spring Boot 3", "React 18", "Leaflet.js", "Tailwind CSS", "Spring Security 6", "JWT", "Geospatial Telemetry", "MySQL", "Render"],
+    imageGradient: "from-amber-500/20 via-yellow-500/10 to-emerald-500/20",
+    stats: [
+      { label: "Fleet Modalities", value: "4 Distinct Classes" },
+      { label: "Vector Telemetry", value: "60 FPS Leaflet" },
+      { label: "Safety Verification", value: "4-Digit OTP" },
+      { label: "Test Coverage", value: "100% Verified" },
+    ],
+    features: [
+      "Multi-Modal Fleet Booking: Seamless dispatching across Bike, Auto, Cab, and Porter Cargo with dynamic fare estimation.",
+      "Real-Time Vector Map Tracking: Interactive Leaflet.js map with driver proximity radial detection and simulated 60 FPS vehicle trajectories.",
+      "Cryptographic 4-Digit Ride OTP: Anti-fraud ride start verification handshake ensuring rider safety and passenger audit trails.",
+      "Tri-Role Operational Ecosystem: Tailored interfaces for Riders (booking & live transit), Driver Partners (dispatch alerts & trip management), and Platform Admins (fleet telemetry).",
+      "Dynamic Fare Calculation: Intelligent surge and distance-based fare algorithm incorporating base fare, per-km rates, and vehicle multipliers.",
+    ],
+    architecture: {
+      client: "React 18 PWA + Leaflet.js Vector Map Chamber",
+      gateway: "Spring Boot 3 REST API Gateway with JWT & RBAC",
+      engine: "Dynamic Fare Matrix & Stateful Fleet Dispatch Engine",
+      storage: "MySQL Schema (Fleet Registry, Rides, Driver Partners, Telemetry Logs)",
+      flow: [
+        "1. Rider selects pickup/drop coordinates and vehicle class (Bike, Auto, Cab, Porter)",
+        "2. Spring Boot calculates distance matrix and provides instant dynamic fare quotation",
+        "3. Ride request is dispatched to nearby driver partners with audio-assisted notifications",
+        "4. Driver accepts; rider receives cryptographic 4-digit safety OTP to authenticate ride start",
+      ],
+    },
+    github: "https://github.com/ManoharAkuthota/Car-booking-application",
+    demo: "https://drivepulse-frontend.onrender.com",
+    previewUrl: "https://drivepulse-frontend.onrender.com",
+  },
 ];
 
 export const terminalShowcaseData = {

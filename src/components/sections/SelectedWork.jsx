@@ -281,8 +281,8 @@ const ArchitecturalBlueprint = ({ blueprint, onOpenModal }) => {
 };
 
 const categories = [
-  { id: 'all', label: 'All Curated Spreads', count: '06' },
-  { id: 'enterprise', label: 'Enterprise Java & GovTech', count: '03' },
+  { id: 'all', label: 'All Curated Spreads', count: '07' },
+  { id: 'enterprise', label: 'Enterprise Java & Mobility', count: '04' },
   { id: 'ai', label: 'Autonomous AI & Vision', count: '02' },
   { id: 'commerce', label: 'Omnichannel Commerce', count: '01' },
 ];
@@ -555,6 +555,73 @@ const projects = [
   },
   {
     number: '05',
+    id: 'project-drivepulse',
+    category: 'enterprise',
+    department: 'DEPARTMENT // ON-DEMAND MOBILITY & GEOSPATIAL FLEET SYSTEMS',
+    title: 'DRIVEPULSE — RIDE-HAILING & FLEET MOBILITY',
+    italicWord: 'DRIVEPULSE',
+    subtitle: 'Full-Stack Spring Boot 3 / React 18 / Leaflet.js • Enterprise Multi-Modal Transit',
+    badge: 'RAPIDO & UBER MULTI-MODAL ARCHITECTURE',
+    image: '/assets/project_drivepulse.jpg',
+    liveDomain: 'drivepulse-frontend.onrender.com',
+    demoUrl: 'https://drivepulse-frontend.onrender.com',
+    githubUrl: 'https://github.com/ManoharAkuthota/Car-booking-application',
+    leadQuote: 'Enterprise-grade ride-hailing and fleet mobility platform delivering real-time vector map tracking, multi-modal vehicle dispatch (Bike, Auto, Cab, Porter), and cryptographic ride safety OTP verification.',
+    keyMetrics: [
+      { val: '4 Modes', label: 'MULTI-MODAL FLEET', pct: 100 },
+      { val: '60 FPS', label: 'VECTOR MAP TELEMETRY', pct: 98 },
+      { val: '4-Digit', label: 'CRYPTOGRAPHIC OTP', pct: 100 },
+    ],
+    specs: {
+      'Enterprise Core': 'Spring Boot 3 • Spring Security 6',
+      'Client Interface': 'React 18 • Leaflet.js • Tailwind CSS',
+      'Fleet Booking': 'Bike • Auto • Cab • Porter Cargo',
+      'Operational Roles': 'Rider • Driver Partner • Platform Admin',
+    },
+    bullets: [
+      'Architected multi-modal vehicle booking engine (Bike, Auto, Cab, Porter Cargo) with dynamic fare computation, real-time surge pricing, and distance matrix routing.',
+      'Engineered responsive Leaflet.js vector mapping interface featuring live geolocation tracking, driver proximity radial detection, and 60 FPS arrival trajectory simulation.',
+      'Implemented cryptographic 4-digit ride safety OTP verification, audio-assisted dispatch alerts, and 3-tier Role-Based Access Control (Rider, Driver Partner, Platform Admin).',
+      'Verified with 100% automated test coverage across mobile and desktop devices, ensuring sub-100ms dispatch latency and zero booking desynchronization.',
+    ],
+    tags: ['Spring Boot 3', 'React 18', 'Leaflet.js', 'Tailwind CSS', 'Geospatial Telemetry', '4-Digit Safety OTP', 'Fleet Mobility', 'REST APIs', 'Render'],
+    blueprint: {
+      title: 'ENTERPRISE RIDE-HAILING & GEOSPATIAL FLEET TOPOLOGY',
+      drawingNo: 'MK-2026-ARCH-05',
+      protocol: 'LEAFLET GEO-TELEMETRY • SPRING BOOT 3 REST • STATEFUL FLEET DISPATCH',
+      tiers: [
+        {
+          tierLabel: '01 // INGRESS & CLIENT APPS',
+          badge: 'PORTAL APPS',
+          flowLabel: 'HTTPS / REST',
+          nodes: [
+            { name: 'React 18 Passenger PWA', port: ':5173', role: 'Multi-modal transit booking chamber with real-time pickup & dynamic fare estimation.', tech: ['React 18', 'Tailwind', 'Vite'] },
+            { name: 'Leaflet Vector Map Sentinel', port: 'GEO-CANVAS', role: 'Interactive vector road mapping with live driver coordinates & 60 FPS trajectory.', tech: ['Leaflet.js', 'OpenStreetMap'] },
+          ],
+        },
+        {
+          tierLabel: '02 // DISPATCH ENGINE & SECURITY',
+          badge: 'CORE MOBILITY',
+          flowLabel: 'STATE MACHINE / OTP',
+          nodes: [
+            { name: 'Spring Boot 3 Fleet API', port: ':8080', role: 'Central mobility orchestrator handling booking lifecycle & multi-tenant auth.', tech: ['Spring Boot 3', 'Java 21'] },
+            { name: 'Dynamic Fare & Distance Engine', port: 'FARE CALC', role: 'Base fare, per-km distance matrix & vehicle multiplier algorithm.', tech: ['Dynamic Pricing', 'Math'] },
+            { name: 'Cryptographic OTP Vault', port: 'PIN VAULT', role: 'Tamper-resistant 4-digit start-trip verification handshake preventing fraud.', tech: ['Crypto OTP', 'Audit Log'] },
+          ],
+        },
+        {
+          tierLabel: '03 // PERSISTENCE & TELEMETRY',
+          badge: 'PERSISTENCE',
+          nodes: [
+            { name: 'Fleet & Driver Registry DB', port: ':3306', role: 'Relational data store for vehicle classes, active rides, driver ratings & logs.', tech: ['MySQL', 'Spring Data JPA'] },
+            { name: 'Geospatial Telemetry Stream', port: 'GEO LOG', role: 'Trip telemetry recorder maintaining full dispatch audit history.', tech: ['Audit Stream', 'State Machine'] },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    number: '06',
     id: 'project-04',
     category: 'enterprise',
     department: 'DEPARTMENT // TELECOM BACKEND & KAFKA EVENT CLUSTERS',
@@ -585,7 +652,7 @@ const projects = [
     tags: ['Java', 'Spring Boot', 'Apache Kafka', 'JWT', 'Microservices', 'Spring Security', 'REST APIs'],
     blueprint: {
       title: 'EVENT-DRIVEN CPaaS MESSAGE DISPATCH CLUSTER',
-      drawingNo: 'MK-2026-ARCH-04',
+      drawingNo: 'MK-2026-ARCH-06',
       protocol: 'REST INGRESS • APACHE KAFKA CLUSTER • TELCO SMPP',
       tiers: [
         {
@@ -618,7 +685,7 @@ const projects = [
     },
   },
   {
-    number: '06',
+    number: '07',
     id: 'project-05',
     category: 'ai',
     department: 'DEPARTMENT // EDGE COMPUTER VISION & SAFETY AI',
@@ -649,7 +716,7 @@ const projects = [
     tags: ['Python', 'OpenCV', 'Dlib', 'Computer Vision', 'Deep Learning', 'AI Safety', 'NumPy'],
     blueprint: {
       title: 'REAL-TIME EDGE COMPUTER VISION & OCULAR FATIGUE TOPOLOGY',
-      drawingNo: 'MK-2026-ARCH-05',
+      drawingNo: 'MK-2026-ARCH-07',
       protocol: 'OPENCV 60 FPS • DLIB 68 LANDMARKS • ACOUSTIC ALARM',
       tiers: [
         {
@@ -944,7 +1011,7 @@ export default function SelectedWork({ onHoverSound, onClickSound }) {
 
                         <div className="hidden sm:flex items-center gap-2">
                           <span className="text-zinc-500">CURATED</span>
-                          <span className="text-white font-bold">{project.number} / 05</span>
+                          <span className="text-white font-bold">{project.number} / {String(projects.length).padStart(2, '0')}</span>
                         </div>
                       </div>
 
@@ -1185,7 +1252,7 @@ export default function SelectedWork({ onHoverSound, onClickSound }) {
               <div className="flex items-center gap-3">
                 <span className="w-2 h-2 rounded-full bg-[#ccff00] animate-pulse" />
                 <span className="text-xs font-mono font-bold text-[#ccff00]">
-                  SPREAD {activeInspectProject.number} / 05
+                  SPREAD {activeInspectProject.number} / {String(projects.length).padStart(2, '0')}
                 </span>
                 <span className="text-zinc-600 hidden sm:inline">//</span>
                 <span className="text-xs font-mono text-zinc-300 hidden sm:inline uppercase truncate max-w-xs md:max-w-md">

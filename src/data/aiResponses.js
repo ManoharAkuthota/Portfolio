@@ -4,6 +4,7 @@ export const defaultGreeting =
 export const suggestedPrompts = [
   "What is Manohar's core tech stack?",
   "Tell me about the SmartVote Bharat e-voting project",
+  "Tell me about the DrivePulse ride-hailing & fleet platform",
   "Tell me about the AI Job Application Bot",
   "How does the Driver Drowsiness Detection work?",
   "Explain the APEX TRUST Banking project",
@@ -12,6 +13,10 @@ export const suggestedPrompts = [
 ];
 
 export const aiKnowledgeBase = [
+  {
+    keywords: ["drivepulse", "ride", "uber", "rapido", "porter", "car booking", "fleet", "mobility", "leaflet", "otp"],
+    reply: "**DrivePulse** is a full-stack, enterprise-grade ride-hailing and fleet mobility platform inspired by Rapido and Uber, engineered with **React 18**, **Tailwind CSS**, **Leaflet.js**, and **Spring Boot 3**. It delivers real-time vector map tracking, multi-modal vehicle bookings (Bike, Auto, Cab, and Porter Cargo), cryptographic 4-digit ride safety OTPs, audio-assisted dispatch alerts, and dedicated operational interfaces for Riders, Driver Partners, and Platform Admins.",
+  },
   {
     keywords: ["vote", "voting", "smartvote", "election", "ballot", "facial", "biometric", "article 324", "eci"],
     reply: "**SmartVote Bharat (SmartVote-AI)** is a sovereign national digital e-voting infrastructure designed in strict compliance with Article 324 of the Constitution of India. Built with **Spring Boot 3.3**, **React 18**, and **Vite**, it features AI-powered real-time facial verification & liveness detection, immutable SHA-256 cryptographic ballot sealing, digital voter slip generation, and dual-layer EC/Returning Officer audit consoles.",
